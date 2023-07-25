@@ -1,0 +1,35 @@
+.wrap {
+    // Use the entire page
+    height: 100%;
+  
+    // Put the toolbar above (north of) everything else
+    display: flex;
+  
+    // Orient vertically (don't put the toolbar next to the rest)
+    flex-direction: column;
+    
+  }
+  
+  // The stuff below (south of) the toolbar
+  .sidenav-container {
+    // Use the entire page
+    height: 100%;
+  }
+  
+  .example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+  
+  .user-right {
+    // font-size: 1vw !important;
+    overflow: hidden;
+  }
+  
+  .toolbar {
+    background-color: #F1B616;
+    padding-top: 1rem;
+  }
+  
+  

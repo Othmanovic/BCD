@@ -1,0 +1,40 @@
+<!-- Main nav list -->
+<mat-nav-list class="mat-typography">
+  <a mat-list-item routerLink="/welcome">
+    <mat-icon>person_pin</mat-icon>
+    &nbsp;  بياتات الزبون
+  </a>
+
+  <ng-container *ngIf="authStatus.authorized">
+    <a mat-list-item routerLink="/inventories">
+      <mat-icon>work</mat-icon>
+      &nbsp; Inventories
+    </a>
+
+    <a mat-list-item routerLink="/account" *ngIf="!authStatus.offline">
+      <mat-icon>account_circle</mat-icon>
+      &nbsp; Account
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="!authStatus.authorized">
+    <a mat-list-item routerLink="/login">
+      <mat-icon>credit_card</mat-icon>
+      &nbsp;  بيانات البطاقة
+    </a>
+    
+    <a mat-list-item routerLink="/register">
+      <mat-icon>account_balance</mat-icon>
+      &nbsp; بيانات الفرع أو الوكالة 
+    </a>
+  </ng-container>
+  
+  <a mat-list-item routerLink="/scan">
+    <mat-icon>upload</mat-icon>
+    &nbsp; رفغ ملفات
+  </a>
+  <a mat-list-item (click)="onLogout()" href="#">
+    <mat-icon>logout</mat-icon>
+    &nbsp;   تسجيل الخروج
+  </a>
+</mat-nav-list>

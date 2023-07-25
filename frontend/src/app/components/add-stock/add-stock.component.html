@@ -1,0 +1,38 @@
+<span class="mat-typography" *ngIf="unauthorized">
+  <h2>Unauthorized</h2>
+  We couldn't fetch this inventory, because you aren't authorized. <br>
+  Try logging in again to resolve this. <br>
+  <br>
+  Redirecting you to the login page in 3 seconds...
+</span>
+
+<span *ngIf="!unauthorized">
+  <form [formGroup]="form" (ngSubmit)="onAddStock()">
+    <mat-form-field appearance="outline">
+      <mat-label>Expiration date</mat-label>
+      <input matInput placeholder="12/31/2018" [matDatepicker]="exDatePicker" formControlName="exDate" required>
+      <mat-datepicker-toggle matSuffix [for]="exDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #exDatePicker></mat-datepicker>
+      <mat-error *ngIf="form.value.exDate.invalid">{{getExDateErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Use up in # days</mat-label>
+      <input matInput type="number" placeholder="3" formControlName="useUpIn">
+      <!-- <span matSuffix>&nbsp;days</span> -->
+      <i matSuffix class="material-icons">update</i>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Quantity</mat-label>
+      <input matInput type="text" placeholder="3 kg" formControlName="quantity" required>
+      <mat-error *ngIf="form.value.quantity.invalid">{{getQuantityErrorMessage()}}</mat-error>
+      <i matSuffix class="material-icons">equalizer</i>
+    </mat-form-field>
+    <br>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="!form.valid">Add stock</button>
+  </form>
+</span>

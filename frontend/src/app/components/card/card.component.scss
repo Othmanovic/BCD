@@ -1,0 +1,105 @@
+.card-details {
+    direction: rtl;
+
+}
+
+.visa-card {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: right;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    // direction: rtl;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    // direction: rtl;
+
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+thead {
+    background-color: #F1B616;
+    color: #fff;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+}
+
+.print-button button {
+    background-color: #F1B616;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-button button:hover {
+    background-color: #d5a614;
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Responsive styles */
+    .print-button {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .print-button button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    margin: 1rem;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F1B616;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}

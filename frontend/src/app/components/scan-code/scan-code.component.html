@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <div class="container">
+    <h2 class="page-title">تحميل ملفات العميل</h2>
+    <div class="form-group">
+      <label for="fileUpload">تحميل الملف</label>
+      <input type="file" class="form-control-file" id="fileUpload"
+        (change)="onFileUpload($event)">
+    </div>
+
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
+  </div>
+  <!-- <div class="container">
+    <h2 class="page-title">تحميل ملفات البطاقة</h2>
+    <div class="form-group">
+      <label for="fileUpload">تحميل الملف</label>
+      <input type="file" [disabled]="!selectedFileType" class="form-control-file" id="fileUpload"
+        (change)="onFileUpload($event)">
+    </div>
+
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
+  </div>
+  <div class="container">
+    <h2 class="page-title">تحميل ملفات الفرع</h2>
+    <div class="form-group">
+      <label for="fileUpload">تحميل الملف</label>
+      <input type="file" [disabled]="!selectedFileType" class="form-control-file" id="fileUpload"
+        (change)="onFileUpload($event)">
+    </div>
+
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
+  </div> -->
+</div>
+
+<!-- <div class="container">
+  <div class="upload-container">
+    <label for="file1" class="upload-label">File 1</label>
+    <input type="file" id="file1" (change)="onFileSelected($event, 1)" />
+  </div>
+  <div class="upload-container">
+    <label for="file2" class="upload-label">File 2</label>
+    <input type="file" id="file2" (change)="onFileSelected($event, 2)" />
+  </div>
+  <div class="upload-container">
+    <label for="file3" class="upload-label">File 3</label>
+    <input type="file" id="file3" (change)="onFileSelected($event, 3)" />
+  </div>
+</div> -->

@@ -1,0 +1,123 @@
+<!-- <span class="mat-typography" *ngIf="unauthorized">
+  <h2>Unauthorized</h2>
+  We couldn't fetch your inventories, because you aren't authorized. <br />
+  Try logging in again to resolve this. <br />
+  <br />
+  Redirecting you to the login page in 3 seconds...
+</span>
+
+<span *ngIf="!unauthorized">
+  <span class="mat-typography" *ngIf="loading && !notFound">
+    <h2>Loading things...</h2>
+    We're getting the inventory's things... <br />
+    Please hang on
+  </span>
+
+  <span *ngIf="!loading && !notFound">
+    <span *ngIf="things.length === 0" class="mat-typography">
+      Add things by hitting the plus button.
+    </span>
+
+    <div class="grid">
+      <div *ngFor="let thing of things">
+        <app-thing-card [thing]="thing"></app-thing-card>
+      </div>
+    </div>
+
+    <button mat-fab class="fab" routerLink="new">
+      <i class="material-icons">add</i>
+    </button>
+  </span>
+
+  <div *ngIf="notFound" class="mat-typography">
+    <h2>
+      Oh, no.
+    </h2>
+    We couldn't find the inventory you requested.
+  </div>
+</span> -->
+
+
+<div class="wrap">
+  <!-- Navigation toolbar -->
+  <mat-toolbar class="toolbar">
+    <!-- Sidenav toggle button -->
+    <button mat-icon-button (click)="sidenav.toggle()" color="basic">
+      <!-- Burger icon -->
+      <mat-icon>menu</mat-icon>
+    </button>
+    <!-- Navigation bar heading -->
+    {{ title }}
+
+    <!-- Middle -->
+    <span class="example-fill-remaining-space"></span>
+    <ng-container>
+        <img src="../../../assets/icons/2.png">
+
+      </ng-container>
+    <span class="example-fill-remaining-space"></span>
+
+    <!-- On the right side-->
+    <div class="user-right">
+      <ng-container *ngIf="!loading">
+        <ng-container *ngIf="authStatus.authorized">
+          <button mat-stroked-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>account_circle</mat-icon>
+            {{ authStatus.user.name }} ({{ authStatus.user.email }})
+          </button>
+
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item routerLink="/account" *ngIf="!authStatus.offline">
+              Account
+            </button>
+            <button mat-menu-item (click)="onLogout()" *ngIf="!authStatus.offline">
+              Logout
+            </button>
+            <button mat-menu-item (click)="onLogout()" *ngIf="authStatus.offline" disabled>
+              You're offline
+            </button>
+          </mat-menu>
+        </ng-container>
+
+        <ng-container *ngIf="!authStatus.authorized">
+          <button mat-stroked-button *ngIf="!invalidJWT" color="basic" routerLink="/register">
+            Register
+          </button>
+          &nbsp;
+          <button mat-raised-button *ngIf="!invalidJWT" color="accent" routerLink="/login">
+            Login
+          </button>
+          <p *ngIf="invalidJWT">
+            Your login has expired. Use the buttons below to log in or register.
+          </p>
+        </ng-container>
+      </ng-container>
+      
+
+      <ng-container>
+        <img src="../../../assets/icons/bank-logo-1.png">
+
+      </ng-container>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" autosize>
+    <!-- The main content (not the sidenav) -->
+    <mat-sidenav-content>
+      <!-- Add a bit of space around the edges -->
+      <div class="defaultMargin">
+        <app-crumb-trail></app-crumb-trail>
+        <mat-divider></mat-divider>
+        <br />
+        <!-- Main app content -->
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+    <!-- The sidenav content -->
+    <mat-sidenav #sidenav mode="side" [(opened)]="sideNavOpened" class="sidenav-main">
+      <!-- The SideNav component -->
+      <app-side-nav></app-side-nav>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>

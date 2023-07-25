@@ -1,0 +1,105 @@
+AWS Login:
+aws sso login --profile development-bigledger
+aws sso login --profile codes_bigledger
+aws sso login --profile staging-bigledger
+
+[disabled]="localState.deactivateAdd"
+Deploy:
+login to AWS staging
+git stash => git pull => git stash pop
+bin/staging/applet_name_applet_publish.sh
+
+
+Update ts library:
+npm install --legacy-peer-deps blg-akaun-ts-lib@latest --save
+Or 
+npm i blg-akaun-ts-lib@latest --save --legacy-peer-deps
+
+*ngIf="userRank==='OWNER'||userRank==='ADMIN'"
+
+
+Unique Subject Guid:
+e9e5c86f-ae78-46a7-8118-b639854e643b
+
+
+Security Email: 
+Ideas about security initiating the department, options to start with, introducing customers. giving ideas
+
+
+How to test:
+
+core2/tnt/dm/erp/stock-adjustment/import-file-hdr
+
+POST  /backoffice-ep  , Body need file (csv)
+
+DELETE  /backoffice-ep/{guid}
+
+GETALL /backoffice-ep
+
+GETBYGUID /backoffice-ep/{guid}
+
+GETBYCRITERIA /backoffice-ep/query
+
+GetDownloadTemplate /backoffice-ep/download-master-data-template
+
+These two endpoint is for retry for processor:
+- Get Retry for specific /backoffice-ep/retry/{guid}
+- Get Retry for all /backoffice-ep/retry
+
+Update Function:
+
+onSave() {
+    const mtoSectionHdr = new MTOSectionHdrContainerModel();
+
+    mtoSectionHdr.bl_fi_mto_section_hdr.guid = this.sectionGuid;
+    mtoSectionHdr.bl_fi_mto_section_hdr.section_code = this.form.value.SectionCode;
+    mtoSectionHdr.bl_fi_mto_section_hdr.name = this.form.value.SectionName;
+    mtoSectionHdr.bl_fi_mto_section_hdr.is_compulsory = this.form.value.Required;
+    mtoSectionHdr.bl_fi_mto_section_hdr.description = this.form.value.Description;
+    mtoSectionHdr.bl_fi_mto_section_hdr.sort_code = this.form.value.SortCode;
+
+    console.log("Section Container", mtoSectionHdr);
+    console.log("localstate onsave", this.localState);
+
+    this.store.dispatch(
+      MTOActions.updateMTOSectionInit({
+        sectionContainer: mtoSectionHdr,
+        section_guid: this.sectionGuid,
+      })
+      );
+      this.onReturn();
+    }
+
+
+
+'SELECT * FROM products WHERE category = 'Gifts''-- AND released = 1'
+
+
+https://weborder.zeoniq.com/one/init-loading
+http://eut.xilnex.com/vendor.aspx
+https://webapp.xilnex.com/
+
+
+
+
+Arap contra
+Arap balance
+signum
+difference between arap balance and doc_open
+
+
+
+
+
+My Staff ID: F00024 
+
+purhcase grn, purhcase grn supplier, purhcase invoice, purhcase order,purchase order supplier, purchase return
+
+To Deploy:
+internal-goods-delivery-note-applet
+
+
+
+
+
+

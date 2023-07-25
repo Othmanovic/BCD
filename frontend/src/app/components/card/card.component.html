@@ -1,0 +1,106 @@
+<div class="card-details">
+  <h2>تفاصيل بطاقة الفيزا</h2>
+
+  <div class="search-bar">
+    <input type="text" placeholder="ابحث باستخدام رقم الحساب أو رقم البطاقة أو الاسم" [(ngModel)]="searchQuery"
+      (input)="performSearch()" />
+    <button (click)="performSearch()">Search</button>
+  </div>
+  <br>
+
+  <h3>نتائج البحث</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>رقم الحساب</th>
+        <th>رقم البطاقة</th>
+        <th>اسم صاحب البطاقة</th>
+        <!-- Add other table headers if needed -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of searchResults">
+        <td>{{ result.accountNumber }}</td>
+        <td>{{ result.cardNumber }}</td>
+        <td>{{ result.cardHolderName }}</td>
+        <!-- Add other table data cells if needed -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="print-button">
+  <button routerLink="delivery-report">طباعة التقرير</button>
+</div>
+<!-- <h3>بيانات البطاقة</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>رقم الحساب</th>
+        <th>رقم البطاقة</th>
+        <th>اسم صاحب البطاقة</th>
+        <th>تاريخ الاصدار</th>
+        <th>تاريخ الانتهاء</th>
+        <th>القيمة المحجوزة</th>
+        <th>الرصيد</th>
+        <th>العملة</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ cardInfo.accountNumber }}</td>
+        <td>{{ cardInfo.cardNumber }}</td>
+        <td>{{ cardInfo.cardHolderName }}</td>
+        <td>{{ cardInfo.releaseDate }}</td>
+        <td>{{ cardInfo.expiryDate }}</td>
+        <td>{{ cardInfo.reservedValue }}</td>
+        <td>{{ cardInfo.balance }}</td>
+        <td>{{ cardInfo.currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+<br>
+  <h3>سجل العمليات</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>تاريخ العملية</th>
+        <th>نوع العملية</th>
+        <th>قيمة العملية بعملة البطاقة</th>
+        <th>العملة</th>
+        <th>القيمة المسحوبة</th>
+        <th>نوع السحب</th>
+        <th>مكان السحب</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.transactionDate }}</td>
+        <td>{{ transaction.transactionType }}</td>
+        <td>{{ transaction.transactionValue }}</td>
+        <td>{{ transaction.currency }}</td>
+        <td>{{ transaction.withdrawnValue }}</td>
+        <td>{{ transaction.withdrawalType }}</td>
+        <td>{{ transaction.withdrawalPlace }}</td>
+      </tr>
+    </tbody>
+  </table>
+<br>
+  <h3>رسوم البطاقة</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>عدد الرسوم</th>
+        <th>قيمة الرسوم</th>
+        <th>قيمة السحب</th>
+        <th>قيمة الشراء</th>
+        <th>قيمة العمولات</th>
+        <th>عدد عمليات السحب</th>
+        <th>عدد عمليات الشراء</th>
+        <th>عددالعمولات</th>
+      </tr>
+    </thead>
+  </table> -->
+<!-- </div> -->
+<div class="print-button">
+  <button routerLink="delivery-report">طباعة التقرير</button>
+</div>

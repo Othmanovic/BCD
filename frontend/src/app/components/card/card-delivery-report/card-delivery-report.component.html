@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successful Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+    <div class="card" id="download">
+        <div class="title"><img src="../../../assets/icons/bank-logo-1.png"></div>
+        <br>
+        <br>
+        <div class="title">نموذج تسليم بطاقة</div>
+        <div class="info">
+            <div class="row">
+                <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">04/02/2004</span>
+                </div>
+                <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span
+                        id="details">334982371497</span> </div>
+            </div>
+        </div>
+        <div class="pricing">
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">Mustafa Mohammed</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">صلاحية البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">02/10/2023</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">نوع عملة البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">USD</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">رصيد البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">1.34</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">الرقم التسلسلي في الحافظة</span> </div>
+                <div class="col-4 card-info"> <span id="price">12</span> </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+
+        <div class="pricing">
+            <div class="row py-4">
+                <div class="col"> <span id="heading">تم التسليم من طرف الموظف حاتم الطرابلسي</span> </div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">اسم الزبون</div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">رقم الهاتف </div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">توقيع الزبون</div>
+            </div>
+
+        </div>
+
+        <div class="footer" (click)="downloadAngularPageAsPdf()">
+            <div class="error-actions">
+                <a id="download_button" class="btn btn-lg"><span class="glyphicon glyphicon-print mx-2"></span>
+                    Print </a>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .card {
+        padding: 4vh 0;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-top: 8px solid #F1B616;
+        border-left: none;
+        border-right: none;
+        direction: rtl;
+        height: auto;
+    }
+
+
+    .title {
+        color: rgb(49, 46, 46);
+        font-weight: bold;
+        margin-bottom: 2vh;
+        padding: 0 8%;
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    #details {
+        font-weight: 400
+    }
+
+    .info {
+        padding: 5% 8%;
+        color: rgb(66, 64, 64);
+
+    }
+
+    .info .col-5 {
+        padding: 0
+    }
+
+    #heading {
+        color: black;
+        font-weight: bold;
+        line-height: 6vh
+    }
+
+    .pricing {
+        background-color: rgba(104, 101, 101, 0.2);
+        padding: 2vh 8%;
+        line-height: 2.5;
+    }
+
+    .pricing span {
+        font-size: large;
+    }
+
+    .card-info {
+        font-size: medium;
+        color: rgb(49, 48, 48);
+    }
+
+    .horizontal-dotted-line {
+        display: flex;
+        width: 300px;
+        padding: 5px;
+        font-size: small;
+        color: black;
+    }
+
+    .horizontal-dotted-line:after {
+        border-bottom: 1px dotted black;
+        content: '';
+        flex: 1;
+    }
+
+
+    .pricing .col-3 {
+        padding: 0
+    }
+
+    .subheader {
+        font-size: large;
+        color: black;
+    }
+
+    .total {
+        padding: 2vh 8%;
+        color: #F1B616;
+        font-weight: bold
+    }
+
+    .total .col-3 {
+        padding: 0
+    }
+
+    .footer {
+        padding: 0 8%;
+        font-size: large;
+        color: black;
+        margin-top: 0;
+        padding-top: 0;
+        position: static;
+    }
+
+    .error-template {
+        padding: 40px 15px;
+        text-align: center;
+    }
+
+    .error-actions {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .error-actions .btn {
+        margin-top: 5%;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        background-color: #F1B616;
+        color: white;
+    }
+</style>
+
+</html>

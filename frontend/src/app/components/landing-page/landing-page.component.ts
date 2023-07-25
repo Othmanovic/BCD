@@ -1,0 +1,106 @@
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { ResponseData } from 'src/app/models/auth.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ValidateService } from 'src/app/services/validate/validate.service';
+
+@Component({
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.scss']
+})
+
+
+
+
+export class LandingPageComponent implements OnInit {
+
+  username: String;
+  email: String;
+  password: String;
+
+  isLoggedIn: boolean = false;
+
+  isSignUpMode: boolean = false;
+
+  onSignInClick() {
+    this.isSignUpMode = false;
+    console.log("on sigin in", this.isSignUpMode)
+  }
+
+  onSignUpClick() {
+    this.isSignUpMode = true;
+    console.log("on sigin up", this.isSignUpMode)
+  }
+
+  constructor(
+    private validateService: ValidateService,
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+
+
+  ngOnInit(): void {
+    console.log("started as ", this.isSignUpMode)
+  }
+
+  onRegister() {
+    const user = {
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    }
+
+    if (!this.validateService.validateRegister(user)) {
+      this.flashMessage.show("please fill in all the fields", { cssClass: 'alert-danger', timeout: 3000 });
+      return true;
+    } else {
+      console.log("Voilla!");
+    }
+
+    if (!this.validateService.validateEmail(user.email)) {
+      this.flashMessage.show("please fill in a valid email", { cssClass: 'alert-danger', timeout: 3000 });
+      return true;
+    } else {
+      console.log("Voilla!");
+    }
+
+    this.authService.registerUser(user).subscribe(
+      (data: ResponseData) => {
+        if (data.success) {
+          this.flashMessage.show("You are now registered, and can login", { cssClass: 'alert-success', timeout: 3000 });
+          this.router.navigate(['./login'])
+        } else {
+          console.log("Else");
+
+        }
+      }
+    )
+
+  }
+
+
+  onLogin() {
+    const user = {
+      username: this.username,
+      password: this.password,
+    }
+
+    this.authService.authenticateUser(user).subscribe(data => {
+      (data: ResponseData) => {
+        if (data.success) {
+          this.authService.storeUserData(data.token, data.user);
+          this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
+          this.router.navigate(['./login'])
+        } else {
+          this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
+          this.router.navigate(['./login'])
+        }
+      }
+    })
+  }
+}
+

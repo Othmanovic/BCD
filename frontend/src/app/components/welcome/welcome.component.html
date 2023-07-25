@@ -1,0 +1,59 @@
+<div class="client-info">
+  <h2>معلومات العميل</h2>
+
+  <div class="search-bar">
+    <input type="text" class="form-control" placeholder="البحث عن طريق رقم الحساب، رقم البطاقة أو الاسم"
+      [(ngModel)]="filterText">
+    <button class="btn btn-primary">بحث</button>
+  </div>
+
+  <!-- <form>
+      <label for="accountNumber">Account Number</label>
+      <input type="text" id="accountNumber" [(ngModel)]="clientData.accountNumber" readonly>
+      
+      <label for="idNumber">ID Number</label>
+      <input type="text" id="idNumber" [(ngModel)]="searchResults.idNumber" readonly>
+      
+      <label for="name">Name</label>
+      <input type="text" id="name" [(ngModel)]="searchResults.name" readonly>
+      
+      <label for="amount">Amount of Money</label>
+      <input type="text" id="amount" [(ngModel)]="searchResults.amount" readonly>
+      
+      <label for="branch">Bank Branch</label>
+      <input type="text" id="branch" [(ngModel)]="searchResults.branch" readonly>
+      
+      <label for="slipDate">Slip Date</label>
+      <input type="text" id="slipDate" [(ngModel)]="searchResults.slipDate" readonly>
+      
+      <label for="serialNumber">Serial Number</label>
+      <input type="text" id="serialNumber" [(ngModel)]="searchResults.serialNumber" readonly>
+    </form> -->
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>رقم الحساب</th>
+        <th>الرقم الوطني</th>
+        <th>الرصيد المالي</th>
+        <th>الفرغ المصرفي </th>
+        <th>تاريخ الحافظة</th>
+        <th>الرقم التسلسلي</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr class="record" *ngFor="let client of clients">
+        <td>{{ client.name }}</td>
+        <td>{{ client.idNumber }}</td>
+        <td>{{ client.accountNumber }}</td>
+        <td>{{ client.amount }}</td>
+        <td>{{ client.branch }}</td>
+        <td>{{ client.slipDate }}</td>
+        <td>{{ client.serialNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="printReport()">طباعة التقرير</button>
+</div>
