@@ -7,14 +7,14 @@ import { InventoryService } from "../../services/inventory/inventory.service";
 import domtoimage from 'dom-to-image';
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  selector: "app-branch",
+  templateUrl: "./branch.component.html",
+  styleUrls: ["./branch.component.scss"]
 })
 
 
 
-export class RegisterComponent implements OnInit {
+export class BranchComponent implements OnInit {
   branchData: any[];
   cardData: any;
   searchQuery: string = '';

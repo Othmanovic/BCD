@@ -19,12 +19,12 @@ interface Client {
 }
 
 @Component({
-  selector: "app-welcome",
-  templateUrl: "./welcome.component.html",
-  styleUrls: ["./welcome.component.scss"],
+  selector: "app-clients",
+  templateUrl: "./clients.component.html",
+  styleUrls: ["./clients.component.scss"],
   providers: [FilterPipe]
 })
-export class WelcomeComponent implements OnInit {
+export class ClientsComponent implements OnInit {
 
   clients: Client[] = [
 

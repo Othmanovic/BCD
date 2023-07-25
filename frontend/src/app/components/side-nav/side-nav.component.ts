@@ -42,7 +42,7 @@ export class SideNavComponent implements OnInit {
   onLogout() {
     this.authService.logOut();
     this.flashMessage.show('you are logged out', {cssClass: 'alert-success', timout: 3000});
-    this.router.navigate(['./welcome']);
+    this.router.navigate(['./landing-page']);
     return false;
   }
 

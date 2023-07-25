@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
-import { RegisterComponent } from "./components/register/register.component";
+import { BranchComponent } from "./components/branch/branch.component";
 import { CardComponent } from "./components/card/card.component";
 import { EditThingComponent } from "./components/edit-thing/edit-thing.component";
 import { EditStockComponent } from "./components/edit-stock/edit-stock.component";
@@ -13,9 +13,9 @@ import { ThingsComponent } from "./components/things/things.component";
 import { InventoriesComponent } from "./components/inventories/inventories.component";
 import { EditInventoryComponent } from "./components/edit-inventory/edit-inventory.component";
 import { AddInventoryComponent } from "./components/add-inventory/add-inventory.component";
-import { WelcomeComponent } from "./components/welcome/welcome.component";
+import { ClientsComponent } from "./components/clients/clients.component";
 import { AccountComponent } from "./components/account/account.component";
-import { ScanCodeComponent } from "./components/scan-code/scan-code.component";
+import { FileUplaodComponent } from "./components/file-upload/file-upload.component";
 import { EventsComponent } from "./components/events/events.component";
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { AddCategoryComponent } from "./components/add-category/add-category.component";
@@ -53,9 +53,11 @@ const routes: Routes = [
   // Default route
   { path: "", redirectTo: "/landing-page", pathMatch: "full" },
 
-  // Welcome
+  // Landing Page
   { path: "landing-page", component: LandingPageComponent },
-  { path: "welcome", component: WelcomeComponent },
+
+  // Clients
+  { path: "clients", component: ClientsComponent },
 
   // Auth
   {
@@ -67,10 +69,10 @@ const routes: Routes = [
     ]
   },
   {
-    path: "register",
+    path: "branches",
     children: [
-      { path: "", component: RegisterComponent },
-      { path: ":email", component: RegisterComponent }
+      { path: "", component: BranchComponent },
+      { path: ":email", component: BranchComponent }
     ]
   },
 
@@ -78,7 +80,7 @@ const routes: Routes = [
   { path: "account", component: AccountComponent },
 
   // Scan
-  { path: "upload", component: ScanCodeComponent },
+  { path: "upload", component: FileUplaodComponent },
 
   // Events
   { path: "events", component: EventsComponent },

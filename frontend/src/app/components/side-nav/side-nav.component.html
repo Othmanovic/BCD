@@ -1,6 +1,6 @@
 <!-- Main nav list -->
 <mat-nav-list class="mat-typography">
-  <a mat-list-item routerLink="/welcome">
+  <a mat-list-item routerLink="/clients">
     <mat-icon>person_pin</mat-icon>
     &nbsp;  بياتات الزبون
   </a>
@@ -18,18 +18,18 @@
   </ng-container>
 
   <ng-container *ngIf="!authStatus.authorized">
-    <a mat-list-item routerLink="/login">
+    <a mat-list-item routerLink="/cards">
       <mat-icon>credit_card</mat-icon>
       &nbsp;  بيانات البطاقة
     </a>
     
-    <a mat-list-item routerLink="/register">
+    <a mat-list-item routerLink="/branches">
       <mat-icon>account_balance</mat-icon>
       &nbsp; بيانات الفرع أو الوكالة 
     </a>
   </ng-container>
   
-  <a mat-list-item routerLink="/scan">
+  <a mat-list-item routerLink="/upload">
     <mat-icon>upload</mat-icon>
     &nbsp; رفغ ملفات
   </a>

@@ -4,11 +4,11 @@ import BarcodeFormat from "@zxing/library/esm5/core/BarcodeFormat";
 import { FileService } from "src/app/services/file-upload/file.service";
 
 @Component({
-  selector: "app-scan-code",
-  templateUrl: "./scan-code.component.html",
-  styleUrls: ["./scan-code.component.scss"]
+  selector: "app-file-upload",
+  templateUrl: "./file-upload.component.html",
+  styleUrls: ["./file-upload.component.scss"]
 })
-export class ScanCodeComponent implements OnInit {
+export class FileUplaodComponent implements OnInit {
   selectedFile: File;
 
   file1: File;

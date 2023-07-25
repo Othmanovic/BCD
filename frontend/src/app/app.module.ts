@@ -36,16 +36,16 @@ import { StocksComponent } from "./components/stocks/stocks.component";
 import { EditStockComponent } from "./components/edit-stock/edit-stock.component";
 import { EditThingComponent } from "./components/edit-thing/edit-thing.component";
 import { CardComponent } from "./components/card/card.component";
-import { RegisterComponent } from "./components/register/register.component";
+import { BranchComponent } from "./components/branch/branch.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { InventoriesComponent } from "./components/inventories/inventories.component";
-import { WelcomeComponent } from "./components/welcome/welcome.component";
+import { ClientsComponent } from "./components/clients/clients.component";
 import { EditInventoryComponent } from "./components/edit-inventory/edit-inventory.component";
 import { AddInventoryComponent } from "./components/add-inventory/add-inventory.component";
 import { InventoryCardComponent } from "./components/inventory-card/inventory-card.component";
 import { DeleteConfirmationDialogComponent } from "./components/delete-confirmation-dialog/delete-confirmation-dialog.component";
 import { AccountComponent } from "./components/account/account.component";
-import { ScanCodeComponent } from "./components/scan-code/scan-code.component";
+import { FileUplaodComponent } from "./components/file-upload/file-upload.component";
 import { SideNavComponent } from "./components/side-nav/side-nav.component";
 import { EventsComponent } from "./components/events/events.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
@@ -75,16 +75,16 @@ import { FlashMessagesModule } from "angular2-flash-messages";
     EditStockComponent,
     EditThingComponent,
     CardComponent,
-    RegisterComponent,
+    BranchComponent,
     PageNotFoundComponent,
     InventoriesComponent,
-    WelcomeComponent,
+    ClientsComponent,
     EditInventoryComponent,
     AddInventoryComponent,
     InventoryCardComponent,
     DeleteConfirmationDialogComponent,
     AccountComponent,
-    ScanCodeComponent,
+    FileUplaodComponent,
     SideNavComponent,
     EventsComponent,
     CategoriesComponent,
