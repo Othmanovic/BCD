@@ -1,32 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const File = require("../models/file");
 const CardDetails = require("../models/CardDetails");
 const Transactions = require("../models/Transactions");
-const verifyToken = require('../middlewares/verifyTokenMiddleware');
+const verifyToken = require("../middlewares/verifyTokenMiddleware");
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-  fileFilter: function (req, file, cb) {
-    // Only allow txt files
-    if (file.mimetype === "text/plain") {
-      cb(null, true);
-    } else {
-      cb(new Error("Only .txt files are allowed!"), false);
-    }
-  },
-});
-
-const upload = multer({ storage });
-
-const upload2 = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage() });
 
 function dateFormat(date) {
   const year = date.slice(0, 4);
@@ -39,12 +18,11 @@ function dateFormat(date) {
 }
 
 // Handle file upload
-router.post("/upload1", upload2.single("file1"), (req, res) => {
-  console.log("upload1", req.file);
-
+router.post("/upload1", verifyToken, upload.single("file1"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file received" });
   }
+
   try {
     var fileContent = String(req.file.buffer);
     var lines = fileContent.split("\r\n");
@@ -79,25 +57,25 @@ router.post("/upload1", upload2.single("file1"), (req, res) => {
         item24: data[23],
         item25: data[24],
       };
-      // console.log(obj);
       const newDocument = new Transactions(obj);
       let result = await newDocument.save();
-      console.log("Document inserted successfully:", result);
     });
-    res.json({ msg: "Documents inserted successfully" });
+    res.json({ success: true, msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
     console.log("Error:", e.stack);
+    res.json({ success: false, msg: "Error while parsing file" });
   }
 });
 
 // Handle file upload
-router.post("/upload2", upload2.single("file2"), (req, res) => {
+router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
   console.log("upload2", req.file);
 
   if (!req.file) {
     return res.status(400).json({ message: "No file received" });
   }
+
   try {
     var fileContent = String(req.file.buffer);
     var lines = fileContent.split("\r\n");
@@ -124,23 +102,24 @@ router.post("/upload2", upload2.single("file2"), (req, res) => {
       };
       const newDocument = new CardDetails(obj);
       let result = await newDocument.save();
-      console.log("Document inserted successfully:", result);
     });
-    res.json({ msg: "Documents inserted successfully" });
+    res.json({ success: true, msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
     console.log("Error:", e.stack);
+    res.json({ success: false, msg: "Error while parsing file" });
   }
 });
 
 // search
-router.get("/search", async (req, res) => {
+router.get("/search", verifyToken, async (req, res) => {
   try {
     const { query } = req.query;
 
     if (!query) {
       return res.status(400).json({ message: "Search query is required" });
     }
+
     const cards = await CardDetails.find({
       $or: [
         { AccountNumber: { $in: query } },
@@ -156,14 +135,12 @@ router.get("/search", async (req, res) => {
 });
 
 // Bank Statment
-router.post("/getBankStatment", async (req, res) => {
+router.post("/getBankStatment", verifyToken, async (req, res) => {
   try {
     const { cardNo, startDate, endDate } = req.body;
 
     const start = new Date(startDate);
     const end = new Date(endDate);
-
-    console.log(start, end);
 
     const transactions = await Transactions.find({
       $and: [
