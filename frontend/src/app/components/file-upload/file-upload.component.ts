@@ -61,6 +61,27 @@ export class FileUplaodComponent implements OnInit {
       }
     );
   }
+  uploadFile2() {
+    if (!this.selectedFile) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    // Check if the selected file is a text file
+    if (this.selectedFile.type !== 'text/plain') {
+      alert('Please select a .txt file.');
+      return;
+    }
+
+    this.fileService.uploadFile2(this.selectedFile).subscribe(
+      (response) => {
+        console.log('File uploaded successfully!', response);
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+      }
+    );
+  }
   
   // onFileSelected(event: any, fileNumber: number) {
   //   const file: File = event.target.files[0];

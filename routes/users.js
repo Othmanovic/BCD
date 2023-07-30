@@ -35,61 +35,51 @@ router.post('/register', async (req, res, next) => {
         password: req.body.password
     });
 
-    const hash = await User.hash(req.body.password)
-    newUser.password = hash;
-    newUser.save();
+    try {
+        const hash = await User.hash(req.body.password)
+        newUser.password = hash;
+        newUser.save();
+        res.json({ success: true, msg: 'User registered' });
+    } catch (error) {
+        res.json({ success: false, msg: 'Failed to register user' });
 
-    // User.addUser(newUser, (err, user) => {
-    //   if (err) {
-    //     res.json({ success: false, msg: 'Failed to register user' });
-    //   } else {
-    //     res.json({ success: true, msg: 'User registered' });
-    //   }
-    // });
+    }
 
-
-    // bcrypt.genSalt(10, (err, salt) => {
-    //     bcrypt.hash(newUser.password, salt, (err, hash) => {
-    //         if (err) throw err
-    //         newUser.password = hash;
-    //         newUser.save();
-    //     });
-    // });
     res.send('User registered');
 });
 
 
 // Authenticate
-router.post('/authenticate', (req, res, next) => {
+router.post('/authenticate', async (req, res, next) => {
     console.log("Autheticate route");
     const username = req.body.username;
     const password = req.body.password;
 
-    User.getUserByUsername(username).then((user) => {
-        if (!user) {
-            return res.json({ success: false, msg: 'User not found' });
-        }
+    let user = await User.getUserByUsername(username);
 
-        let isMatch = User.comparePassword(password, user.password)
-        if (isMatch) {
-            const token = jwt.sign({ data: user }, config.secret, {
-                expiresIn: 604800 // 1 week
-            });
+    if (!user) {
+        return res.json({ success: false, msg: 'User not found' });
+    }
 
-            res.json({
-                success: true,
-                token: `Bearer ${token}`,
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    username: user.username,
-                    email: user.email
-                }
-            });
-        } else {
-            return res.json({ success: false, msg: 'Wrong password' });
-        }
-    });
+    let isMatch = User.comparePassword(password, user.password)
+    if (isMatch) {
+        const token = jwt.sign({ data: user }, config.secret, {
+            expiresIn: 604800 // 1 week
+        });
+
+        res.json({
+            success: true,
+            token: `Bearer ${token}`,
+            user: {
+                id: user._id,
+                name: user.name,
+                username: user.username,
+                email: user.email
+            }
+        });
+    } else {
+        return res.json({ success: false, msg: 'Wrong password' });
+    }
 });
 
 // Profile

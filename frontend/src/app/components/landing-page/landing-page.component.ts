@@ -68,16 +68,16 @@ export class LandingPageComponent implements OnInit {
       console.log("Voilla!");
     }
 
-    this.authService.registerUser(user).subscribe(
-      (data: ResponseData) => {
-        if (data.success) {
-          this.flashMessage.show("You are now registered, and can login", { cssClass: 'alert-success', timeout: 3000 });
-          this.router.navigate(['./login'])
-        } else {
-          console.log("Else");
+    this.authService.registerUser(user).subscribe(data => {
+      if (data['success']) {
+        this.flashMessage.show("You are now registered, and can login", { cssClass: 'alert-success', timeout: 3000 });
+        this.router.navigate(['./landing-page'])
+        this.isSignUpMode = false;
+      } else {
+        console.log("Else");
 
-        }
       }
+    }
     )
 
   }
@@ -90,16 +90,17 @@ export class LandingPageComponent implements OnInit {
     }
 
     this.authService.authenticateUser(user).subscribe(data => {
-      (data: ResponseData) => {
-        if (data.success) {
-          this.authService.storeUserData(data.token, data.user);
-          this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
-          this.router.navigate(['./login'])
-        } else {
-          this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
-          this.router.navigate(['./login'])
-        }
+      console.log('Data', data);
+
+      if (data['success']) {
+        this.authService.storeUserData(data['token'], data['user']);
+        this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
+        this.router.navigate(['./clients'])
+      } else {
+        this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
+        this.router.navigate(['./clients'])
       }
+
     })
   }
 }

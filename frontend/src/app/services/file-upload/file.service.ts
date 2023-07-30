@@ -10,8 +10,15 @@ export class FileService {
 
   uploadFile(file: File) {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file1', file);
 
-    return this.http.post('http://localhost:3000/files/upload', formData);
+    return this.http.post('http://localhost:3000/files/upload1', formData);
+  }
+  
+  uploadFile2(file: File) {
+    const formData = new FormData();
+    formData.append('file2', file);
+
+    return this.http.post('http://localhost:3000/files/upload2', formData);
   }
 }

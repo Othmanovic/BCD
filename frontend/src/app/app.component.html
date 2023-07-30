@@ -1,7 +1,7 @@
 <div class="wrap">
   <!-- Navigation toolbar -->
-  <mat-toolbar class="toolbar">
-  <!-- <mat-toolbar class="toolbar" *ngIf="authService.loggedIn()"> -->
+  <!-- <mat-toolbar class="toolbar"> -->
+  <mat-toolbar class="toolbar" *ngIf="authService.loggedIn()">
     <!-- Sidenav toggle button -->
     <button mat-icon-button color="basic">
       <!-- Burger icon -->
@@ -63,12 +63,12 @@
     <mat-sidenav-content>
       <!-- Add a bit of space around the edges -->
       <div>
-        <app-crumb-trail></app-crumb-trail>
-        <!-- <app-crumb-trail *ngIf="authService.loggedIn()"></app-crumb-trail> -->
-        <mat-divider></mat-divider>
-        <!-- <mat-divider *ngIf="authService.loggedIn()"></mat-divider> -->
-        <br/>
-        <!-- <br *ngIf="authService.loggedIn()"/> -->
+        <!-- <app-crumb-trail></app-crumb-trail> -->
+        <app-crumb-trail *ngIf="authService.loggedIn()"></app-crumb-trail>
+        <!-- <mat-divider></mat-divider> -->
+        <mat-divider *ngIf="authService.loggedIn()"></mat-divider>
+        <!-- <br/> -->
+        <br *ngIf="authService.loggedIn()"/>
         <!-- Main app content -->
         <flash-messages></flash-messages>
         <router-outlet></router-outlet>
@@ -76,8 +76,8 @@
     </mat-sidenav-content>
 
     <!-- The sidenav content -->
-    <mat-sidenav #sidenav mode="side" [(opened)]="sideNavOpened" class="sidenav-main">
-    <!-- <mat-sidenav #sidenav mode="side" [(opened)]="sideNavOpened" class="sidenav-main" *ngIf="authService.loggedIn()"> -->
+    <!-- <mat-sidenav #sidenav mode="side" [(opened)]="sideNavOpened" class="sidenav-main"> -->
+    <mat-sidenav #sidenav mode="side" [(opened)]="sideNavOpened" class="sidenav-main" *ngIf="authService.loggedIn()">
       <!-- The SideNav component -->
       <app-side-nav></app-side-nav>
     </mat-sidenav>

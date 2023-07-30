@@ -62,6 +62,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { LayoutsModule } from "./layouts/layouts.module";
 import { CardDeliveryReportComponent } from './components/card/card-delivery-report/card-delivery-report.component';
 import { FlashMessagesModule } from "angular2-flash-messages";
+import { BankStatementComponent } from './components/bank-statement/bank-statement.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { FlashMessagesModule } from "angular2-flash-messages";
     LandingPageComponent,
     FilterPipe,
     CardDeliveryReportComponent,
+    BankStatementComponent,
   ],
   imports: [
     BrowserModule,

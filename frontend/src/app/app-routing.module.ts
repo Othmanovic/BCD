@@ -26,6 +26,7 @@ import { AuthAdminLayoutComponent } from "./layouts/auth-admin-layout/auth-admin
 import { UserLayoutComponent } from "./layouts/user-layout/user-layout.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { CardDeliveryReportComponent } from "./components/card/card-delivery-report/card-delivery-report.component";
+import { BankStatementComponent } from "./components/bank-statement/bank-statement.component";
 
 
 const routes: Routes = [
@@ -65,6 +66,7 @@ const routes: Routes = [
     children: [
       { path: "", component: CardComponent },
       { path: "delivery-report", component: CardDeliveryReportComponent },
+      { path: "bank-statement", component: BankStatementComponent },
       { path: ":email", component: CardComponent },
     ]
   },
