@@ -5,7 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database')
-const uri = 'mongodb+srv://hacks7331:SH74Z1tgwY4OaDXu@cluster0.7luc7b1.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://bcdcards23:Pyp2dUQp48SC7qPH@bcd-cards.27gcwhb.mongodb.net/?retryWrites=true&w=majority'
 // Connect to Database
 mongoose.connect(uri);
 

@@ -84,8 +84,8 @@ router.post("/upload1", upload2.single("file1"), (req, res) => {
       const newDocument = new Transactions(obj);
       let result = await newDocument.save();
       console.log("Document inserted successfully:", result);
-      res.json({ msg: "Documents inserted successfully" });
     });
+    res.json({ msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
     console.log("Error:", e.stack);
@@ -126,8 +126,8 @@ router.post("/upload2", upload2.single("file2"), (req, res) => {
       const newDocument = new CardDetails(obj);
       let result = await newDocument.save();
       console.log("Document inserted successfully:", result);
-      res.json({ msg: "Documents inserted successfully" });
     });
+    res.json({ msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
     console.log("Error:", e.stack);
