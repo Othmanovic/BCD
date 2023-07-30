@@ -4,9 +4,8 @@ const multer = require("multer");
 const File = require("../models/file");
 const CardDetails = require("../models/CardDetails");
 const Transactions = require("../models/Transactions");
-const fs = require("fs");
-const readline = require("readline");
-const { promisify } = require("util");
+const verifyToken = require('../middlewares/verifyTokenMiddleware');
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -84,7 +83,6 @@ router.post("/upload1", upload2.single("file1"), (req, res) => {
       const newDocument = new Transactions(obj);
       let result = await newDocument.save();
       console.log("Document inserted successfully:", result);
-      res.json({ msg: "Documents inserted successfully" });
     });
   } catch (e) {
     // Printing error
