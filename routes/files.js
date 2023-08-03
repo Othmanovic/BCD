@@ -123,7 +123,7 @@ router.get("/search", verifyToken, async (req, res) => {
     const cards = await CardDetails.find({
       $or: [
         { AccountNumber: { $in: query } },
-        { CardAccountNumber: { $in: query } },
+        { PAN: { $in: query } },
       ],
     });
 
@@ -131,6 +131,24 @@ router.get("/search", verifyToken, async (req, res) => {
   } catch (error) {
     console.error("Error searching cards:", error);
     res.status(500).json({ message: "Error searching cards" });
+  }
+});
+
+// Card data from CardDetails table
+router.get("/get-card-data/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    if (!id) {
+      return res.status(400).json({ message: "ID is required" });
+    }
+    
+    const cardData = await CardDetails.findById(id);
+
+    res.json({ success: true, cardData: cardData });
+  } catch (error) {
+    console.error("Error fetching card data:", error);
+    res.status(500).json({ message: "Error fetching card data" });
   }
 });
 
@@ -149,7 +167,7 @@ router.post("/getBankStatment", verifyToken, async (req, res) => {
           TrxDate: {
             $gte: start,
             $lt: end,
-          },
+          },  
         },
       ],
     });
@@ -160,5 +178,25 @@ router.post("/getBankStatment", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error retrieving transactions" });
   }
 });
+
+// Transactions data from Transactions table
+router.get("/get-transaction-data/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    if (!id) {
+      return res.status(400).json({ message: "ID is required" });
+    }
+    
+    const cardData = await Transactions.findById(id);
+
+    res.json({ success: true, cardData: cardData });
+  } catch (error) {
+    console.error("Error fetching card data:", error);
+    res.status(500).json({ message: "Error fetching card data" });
+  }
+});
+
+
 
 module.exports = router;
