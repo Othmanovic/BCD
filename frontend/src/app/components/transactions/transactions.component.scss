@@ -1,6 +1,12 @@
 .branch-info {
     direction: rtl;
+    margin: 20px;
+    /* Default margin for larger screens */
 
+    @media (max-width: 768px) {
+        margin: 10px;
+        /* Adjust margin for smaller screens */
+    }
 }
 
 .visa-card {
@@ -35,7 +41,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    // direction: rtl;
+    direction: ltr;
 
 }
 
@@ -85,6 +91,8 @@ tbody tr:hover {
     .print-button {
         bottom: 10px;
         right: 10px;
+        background-color: #F1B616;
+
     }
 
     .print-button button {

@@ -1,0 +1,47 @@
+const mongoose = require("mongoose");
+
+const mySchema = new mongoose.Schema({
+    AccountNo: { type: String, trim: true },
+    CardNo: { type: String, trim: true },
+    Mbr: { type: String, trim: true },
+    AccountLimit: { type: String, trim: true },
+    Balance: { type: String, trim: true },
+    AccFlag: { type: String, trim: true },
+    DueAmount: { type: String, trim: true },
+    OverDueAmount: { type: String, trim: true },
+    OverDueDays: { type: String, trim: true },
+    OverLimitAmount: { type: String, trim: true },
+    CmsStatus: { type: String, trim: true },
+    OnlineStatus: { type: String, trim: true },
+    CreateDate: { type: Date, trim: true },
+    ExpiryDate: { type: Date, trim: true },
+    AccountStatus: { type: String, trim: true },
+    AccountCurrency: { type: String, trim: true },
+    ActivationDate: { type: Date, trim: true },
+    AmountOnHold: { type: String, trim: true },
+    ExternalAccount: { type: String, trim: true },
+    AccountBranch: { type: String, trim: true },
+    AccountType: { type: String, trim: true },
+    LinkedContract: { type: String, trim: true },
+    ClientName: { type: String, trim: true },
+    AccountState: { type: String, trim: true },
+    ProductType: { type: String, trim: true },
+    DomesticMPProfile: { type: String, trim: true },
+    InternationalMPProfile: { type: String, trim: true },
+    LinkedCards: { type: String, trim: true },
+    LinkedValidCards: { type: String, trim: true },
+    AccDAFProfileNameDom: { type: String, trim: true },
+    AccDAFProfileNameInt: { type: String, trim: true },
+    ArrestedAmounts: { type: String, trim: true },
+    RetailBalance: { type: String, trim: true },
+    CashBalance: { type: String, trim: true },
+    FeesBalance: { type: String, trim: true },
+    InterestBalance: { type: String, trim: true },
+    PaymentsBalance: { type: String, trim: true },
+    OthersBalance: { type: String, trim: true },
+    InstallmentBalance: { type: String, trim: true },
+});
+
+const Accounts = mongoose.model("Accounts", mySchema);
+
+module.exports = Accounts;

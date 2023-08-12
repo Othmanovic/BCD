@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { AuthService, GetStatusResponse } from "./services/auth/auth.service";
 import { InventoryService } from "./services/inventory/inventory.service";
 import { Router } from "@angular/router";
+import { MatSidenav } from "@angular/material/sidenav";
 
 @Component({
   selector: "app-root",
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
    * The title of the application
    */
   title = "مصرف التجارة والتنمية";
+  @ViewChild('sidenav') sidenav: MatSidenav;
 
   get sideNavOpened(): boolean {
     switch (window.localStorage.getItem("sideNavOpened")) {

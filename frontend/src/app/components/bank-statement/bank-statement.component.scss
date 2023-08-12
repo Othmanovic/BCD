@@ -1,21 +1,43 @@
+body {
+    background: #ddd3;
+    height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    font-family: Muli;
+    font-size: 14px
+}
+
 .card {
+    margin: auto;
+    width: 100%;
+    /* max-width: 600px; */
     padding: 4vh 0;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-top: 8px solid #F1B616;
+    border-bottom: 8px solid #F1B616;
     border-left: none;
     border-right: none;
     direction: rtl;
-    height: auto;
 }
 
+hr.style2 {
+    border-top: 5px double black;
+}
+
+@media(max-width:768px) {
+    .card {
+        width: 90%
+    }
+}
 
 .title {
-    color: rgb(49, 46, 46);
+    color: #F1B616;
     font-weight: bold;
     margin-bottom: 2vh;
     padding: 0 8%;
+    font-size: initial;
     text-align: center;
-    font-size: 3rem;
+
 }
 
 #details {
@@ -24,7 +46,6 @@
 
 .info {
     padding: 5% 8%;
-    color: rgb(66, 64, 64);
 
 }
 
@@ -33,48 +54,22 @@
 }
 
 #heading {
-    color: black;
-    font-weight: bold;
+    color: grey;
     line-height: 6vh
 }
 
 .pricing {
-    background-color: rgba(104, 101, 101, 0.2);
+    background-color: #ddd3;
     padding: 2vh 8%;
+    font-weight: 400;
     line-height: 2.5;
-}
+    box-shadow: 4px 6px 10px 6px rgba(0, 0, 0, 0.19);
 
-.pricing span {
-    font-size: large;
-}
-
-.card-info {
-    font-size: medium;
-    color: rgb(49, 48, 48);
-}
-
-.horizontal-dotted-line {
-    display: flex;
-    width: 300px;
-    padding: 5px;
-    font-size: small;
-    color: black;
-}
-
-.horizontal-dotted-line:after {
-    border-bottom: 1px dotted black;
-    content: '';
-    flex: 1;
 }
 
 
 .pricing .col-3 {
     padding: 0
-}
-
-.subheader {
-    font-size: large;
-    color: black;
 }
 
 .total {
@@ -90,10 +85,27 @@
 .footer {
     padding: 0 8%;
     font-size: large;
-    color: black;
-    margin-top: 0;
-    padding-top: 0;
-    position: static;
+    color: black
+}
+
+.footer img {
+    height: 5vh;
+    opacity: 0.2
+}
+
+.footer a {
+    color: #F1B616;
+}
+
+.footer .col-10,
+.col-2 {
+    display: flex;
+    padding: 3vh 0 0;
+    align-items: center
+}
+
+.footer .row {
+    margin: 0
 }
 
 .error-template {
@@ -107,10 +119,40 @@
 }
 
 .error-actions .btn {
-    margin-top: 5%;
+    margin-right: 10px;
     cursor: pointer;
-    border: none;
-    text-decoration: none;
     background-color: #F1B616;
     color: white;
+}
+
+.print-button button {
+    background-color: #F1B616;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-button button:hover {
+    background-color: #d5a614;
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Responsive styles */
+    .print-button {
+        bottom: 10px;
+        right: 10px;
+        background-color: #F1B616;
+
+    }
+
+    .print-button button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }

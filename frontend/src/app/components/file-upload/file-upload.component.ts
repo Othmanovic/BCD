@@ -61,6 +61,7 @@ export class FileUplaodComponent implements OnInit {
       }
     );
   }
+
   uploadFile2() {
     if (!this.selectedFile) {
       alert('Please select a file first.');
@@ -74,6 +75,28 @@ export class FileUplaodComponent implements OnInit {
     }
 
     this.fileService.uploadFile2(this.selectedFile).subscribe(
+      (response) => {
+        console.log('File uploaded successfully!', response);
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+      }
+    );
+  }
+
+  uploadFile3() {
+    if (!this.selectedFile) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    // Check if the selected file is a text file
+    if (this.selectedFile.type !== 'text/plain') {
+      alert('Please select a .txt file.');
+      return;
+    }
+
+    this.fileService.uploadFile3(this.selectedFile).subscribe(
       (response) => {
         console.log('File uploaded successfully!', response);
       },

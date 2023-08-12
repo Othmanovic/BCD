@@ -36,7 +36,7 @@ import { StocksComponent } from "./components/stocks/stocks.component";
 import { EditStockComponent } from "./components/edit-stock/edit-stock.component";
 import { EditThingComponent } from "./components/edit-thing/edit-thing.component";
 import { CardComponent } from "./components/card/card.component";
-import { BranchComponent } from "./components/branch/branch.component";
+import { BranchComponent } from "./components/transactions/transactions.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { InventoriesComponent } from "./components/inventories/inventories.component";
 import { ClientsComponent } from "./components/clients/clients.component";
@@ -63,6 +63,7 @@ import { LayoutsModule } from "./layouts/layouts.module";
 import { CardDeliveryReportComponent } from './components/card/card-delivery-report/card-delivery-report.component';
 import { FlashMessagesModule } from "angular2-flash-messages";
 import { BankStatementComponent } from './components/bank-statement/bank-statement.component';
+import { DecimalPointPipe } from './pipes/decimal-point.pipe';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { BankStatementComponent } from './components/bank-statement/bank-stateme
     FilterPipe,
     CardDeliveryReportComponent,
     BankStatementComponent,
+    DecimalPointPipe,
   ],
   imports: [
     BrowserModule,

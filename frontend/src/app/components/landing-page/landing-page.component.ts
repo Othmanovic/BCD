@@ -98,7 +98,6 @@ export class LandingPageComponent implements OnInit {
         this.router.navigate(['./clients'])
       } else {
         this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
-        this.router.navigate(['./clients'])
       }
 
     })

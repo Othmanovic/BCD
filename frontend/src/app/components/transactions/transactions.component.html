@@ -1,0 +1,81 @@
+<div class="branch-info">
+  <h2>البيانات المصرفية</h2>
+
+  <div class="search-bar">
+
+    <div class="container">
+      <div class="date-picker-container">
+        <mat-form-field class="date-picker-field">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" name="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="date-picker-field">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" name="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="ابحث باستخدام رقم البطاقة أو الحساب" [(ngModel)]="searchValue" />
+        <button (click)="getBankStatement()">Search</button>
+      </div>
+    </div>
+
+    <!-- <button class="btn btn-primary" (click)="performSearch()">بحث</button> -->
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>رقم الحساب</th>
+        <th>رقم البطاقة</th>
+        <th>اسم حامل البطاقة</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.AccountNo }}</td>
+        <td>{{ transaction.maskedCardNumber }}</td>
+        <td>{{ transaction.CustomerName }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>مكان السحب</th>
+        <th>نوع السحب</th>
+        <th>العملة المسحوبة</th>
+        <th>القيمة المسحوبة</th>
+        <th>العملة</th>
+        <th>القيمة بعملة البطاقة</th>
+        <th>نوع العملية</th>
+        <th>تاريخ تنفيذ العملية</th>
+        <th>تاريخ العملية</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.WithdrawalLocation }}</td>
+        <td>{{ transaction.WithdrawalType }}</td>
+        <td>{{ transaction.item22 }}</td>
+        <td>{{ transaction.item18 | decimalPoint }}</td>
+        <td>{{ transaction.Currency }}</td>
+        <td>{{ transaction.item16 | decimalPoint }}</td>
+        <td>{{ transaction.TrxType }}</td>
+        <td>{{ transaction.TrxActualDate | date:'dd-MM-yyyy' }}</td>
+        <td>{{ transaction.TrxDate | date:'dd-MM-yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <div class="print-button" *ngIf="transactions.length > 0"> -->
+  <div class="print-button" *ngIf="transactions != null">
+    <button [routerLink]="['/statement-report', transactions[0]._id]">طباعة التقرير</button>
+  </div>
+</div>

@@ -92,16 +92,39 @@ export class CardComponent implements OnInit {
   ngOnInit() {}
 
   performSearch() {
-    this.cardService.searchCards(this.searchQuery).subscribe(
-      (result) => {
-        this.filteredCardInfo = result.cardInfo;
-        this.filteredTransactionHistory = result.transactions;
+    // Include the trailing zero in the search query
+    const formattedSearchQuery = this.searchQuery + ' 0';
+  
+    this.cardService.searchCards(formattedSearchQuery).subscribe(
+      (response) => {
+        this.searchResults = response['cards'].map((card) => {
+          // Format the card number
+          const firstDigits = card.PAN.substr(0, 4);
+          const lastDigits = card.PAN.substr(-4);
+          const maskedCardNumber = firstDigits + '****' + lastDigits;
+  
+          // Update the card object with the masked card number
+          return { ...card, maskedCardNumber };
+        });
       },
       (error) => {
         console.error('Error searching cards:', error);
+        // Handle error here (e.g., show an error message on the UI)
       }
     );
   }
+
+  // performSearch() {
+  //   this.cardService.searchCards(this.searchQuery).subscribe(
+  //     (result) => {
+  //       this.filteredCardInfo = result.cardInfo;
+  //       this.filteredTransactionHistory = result.transactions;
+  //     },
+  //     (error) => {
+  //       console.error('Error searching cards:', error);
+  //     }
+  //   );
+  // }
 
   
 

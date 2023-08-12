@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
+import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
 
 @Component({
@@ -9,9 +11,33 @@ import * as html2pdf from 'html2pdf.js';
 })
 export class BankStatementComponent implements OnInit {
 
-  constructor() { }
+  rowId: string;
+  name = JSON.parse(localStorage.getItem('user'))['username'];
+  cardData: any; // Variable to store the fetched card data
+
+  constructor(private route: ActivatedRoute, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.rowId = params['id'];
+      console.log('id', this.rowId);
+      
+      // Fetch the card data using the cardService based on the row ID
+      this.transactionsService.getCardData(this.rowId).subscribe(
+        (response) => {
+          if (response['success']) {
+            this.cardData = response['cardData'];
+          }
+          else {
+            alert('Error, could not find this account or card')
+          }
+        },
+        (error) => {
+          console.error('Error fetching card data:', error);
+          // Handle error here (e.g., show an error message on the UI)
+        }
+      );
+    });
   }
 
   downloadAngularPageAsPdf() {
@@ -41,5 +67,6 @@ export class BankStatementComponent implements OnInit {
     // Generate PDF from the cloned div's HTML content
     html2pdf().from(clonedDiv.outerHTML).set(options).save();
   }
+
 
 }

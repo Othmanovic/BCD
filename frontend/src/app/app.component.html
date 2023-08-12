@@ -3,7 +3,7 @@
   <!-- <mat-toolbar class="toolbar"> -->
   <mat-toolbar class="toolbar" *ngIf="authService.loggedIn()">
     <!-- Sidenav toggle button -->
-    <button mat-icon-button color="basic">
+    <button mat-icon-button (click)="sidenav.toggle()" color="basic">
       <!-- Burger icon -->
       <mat-icon>menu</mat-icon>
     </button>
@@ -64,7 +64,7 @@
       <!-- Add a bit of space around the edges -->
       <div>
         <!-- <app-crumb-trail></app-crumb-trail> -->
-        <app-crumb-trail *ngIf="authService.loggedIn()"></app-crumb-trail>
+        <!-- <app-crumb-trail *ngIf="authService.loggedIn()"></app-crumb-trail> -->
         <!-- <mat-divider></mat-divider> -->
         <mat-divider *ngIf="authService.loggedIn()"></mat-divider>
         <!-- <br/> -->
