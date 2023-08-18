@@ -57,22 +57,22 @@ export class AuthService {
     localStorage.clear();
   }
 
-  /**
-   * The latest (cached) response from getCurrentUser
-   */
+  // /**
+  //  * The latest (cached) response from getCurrentUser
+  //  */
   static cachedUserStatus: GetStatusResponse;
 
-  /**
-   * The base URL for all API calls
-   */
+  // /**
+  //  * The base URL for all API calls
+  //  */
   baseUrl: string = environment.baseUrl;
 
-  /**
-   * Logs in the user
-   *
-   * @param email The email address of the user to be logged in
-   * @param pwd The password of the user to be logged in
-   */
+  // /**
+  //  * Logs in the user
+  //  *
+  //  * @param email The email address of the user to be logged in
+  //  * @param pwd The password of the user to be logged in
+  //  */
   async login(
     email: string,
     pwd: string,
@@ -223,6 +223,7 @@ export class AuthService {
 /**
  * This is the response form the server for the login route
  */
+
 export interface LoginResponse {
   // TODO redo
   status: number;

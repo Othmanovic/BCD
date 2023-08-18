@@ -1,5 +1,12 @@
 .client-info {
   direction: rtl;
+  margin: 20px;
+  /* Default margin for larger screens */
+
+  @media (max-width: 768px) {
+    margin: 10px;
+    /* Adjust margin for smaller screens */
+  }
 }
 
 h2 {

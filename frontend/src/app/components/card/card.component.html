@@ -20,18 +20,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let result of searchResults">
-        <td>{{ result.accountNumber }}</td>
-        <td>{{ result.cardNumber }}</td>
-        <td>{{ result.cardHolderName }}</td>
+        <td>{{ result.AccountNumber }}</td>
+        <td>{{ result.maskedCardNumber }}</td>
+        <td>{{ result.CustomerName }}</td>
         <!-- Add other table data cells if needed -->
       </tr>
     </tbody>
   </table>
-</div>
-<div class="print-button">
-  <button routerLink="delivery-report">طباعة نموذج الاستلام</button>
-</div>
-<!-- <h3>بيانات البطاقة</h3>
+  <h3>بيانات البطاقة</h3>
   <table>
     <thead>
       <tr>
@@ -46,21 +42,33 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ cardInfo.accountNumber }}</td>
-        <td>{{ cardInfo.cardNumber }}</td>
-        <td>{{ cardInfo.cardHolderName }}</td>
-        <td>{{ cardInfo.releaseDate }}</td>
-        <td>{{ cardInfo.expiryDate }}</td>
-        <td>{{ cardInfo.reservedValue }}</td>
-        <td>{{ cardInfo.balance }}</td>
-        <td>{{ cardInfo.currency }}</td>
+      <tr *ngFor="let result of searchResults">
+        <td>{{ result.AccountNumber }}</td>
+        <td>{{ result.maskedCardNumber }}</td>
+        <td>{{ result.CustomerName }}</td>
+        <td>{{ result.CreationDate }}</td>
+        <td>{{ result.ExpiryDate }}</td>
+        <td>{{ result.reservedValue }}</td>
+        <td>{{ result.balance }}</td>
+        <td>{{ result.currency }}</td>
       </tr>
     </tbody>
   </table>
-<br>
-  <h3>سجل العمليات</h3>
-  <table>
+  <br>
+  <!-- <div class="print-button">
+    <button routerLink="['/delivery-report', result._id]">طباعة نموذج الاستلام</button>
+  </div> -->
+
+  <div class="print-button" *ngIf="searchResults.length > 0">
+    <button [routerLink]="['/delivery-report', searchResults[0]._id]">طباعة نموذج الاستلام</button>
+  </div>
+</div>
+
+<!-- <div class="print-button">
+  <button routerLink="delivery-report">طباعة نموذج الاستلام</button>
+</div> -->
+<!-- <h3>سجل العمليات</h3>
+    <table>
     <thead>
       <tr>
         <th>تاريخ العملية</th>
@@ -83,7 +91,7 @@
         <td>{{ transaction.withdrawalPlace }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> 
 <br>
   <h3>رسوم البطاقة</h3>
   <table>

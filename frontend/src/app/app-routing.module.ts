@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
-import { BranchComponent } from "./components/branch/branch.component";
+import { BranchComponent } from "./components/transactions/transactions.component";
 import { CardComponent } from "./components/card/card.component";
 import { EditThingComponent } from "./components/edit-thing/edit-thing.component";
 import { EditStockComponent } from "./components/edit-stock/edit-stock.component";
@@ -65,18 +65,19 @@ const routes: Routes = [
     path: "cards",
     children: [
       { path: "", component: CardComponent },
-      { path: "delivery-report", component: CardDeliveryReportComponent },
-      { path: "bank-statement", component: BankStatementComponent },
       { path: ":email", component: CardComponent },
     ]
   },
+  { path: "delivery-report/:id", component: CardDeliveryReportComponent },
   {
-    path: "branches",
+    path: "bank-statement",
     children: [
       { path: "", component: BranchComponent },
       { path: ":email", component: BranchComponent }
     ]
   },
+  { path: "statement-report/:id", component: BankStatementComponent },
+  { path: "statement-report", component: BankStatementComponent },
 
   // Account
   { path: "account", component: AccountComponent },

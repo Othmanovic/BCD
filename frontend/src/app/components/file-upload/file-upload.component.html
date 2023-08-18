@@ -3,32 +3,31 @@
     <h2 class="page-title">تحميل ملفات العميل</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload"
-        (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
     </div>
 
     <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
   </div>
+
   <div class="container">
     <h2 class="page-title">تحميل ملفات البطاقة</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload"
-        (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
     </div>
 
     <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile2()">تحميل الملف</button>
   </div>
-  <!-- <div class="container">
+
+  <div class="container">
     <h2 class="page-title">تحميل ملفات الفرع</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload"
-        (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
     </div>
 
-    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
-  </div> -->
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile3()">تحميل الملف</button>
+  </div>
 </div>
 
 <!-- <div class="container">

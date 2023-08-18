@@ -5,16 +5,25 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { CustomValidatorsService } from "../../services/CustomValidators/custom-validators.service";
 import { InventoryService } from "../../services/inventory/inventory.service";
 import domtoimage from 'dom-to-image';
+import { CardService } from "src/app/services/card/card.service";
+import { TransactionsService } from "src/app/services/transactions/transactions.service";
 
 @Component({
   selector: "app-branch",
-  templateUrl: "./branch.component.html",
-  styleUrls: ["./branch.component.scss"]
+  templateUrl: "./transactions.component.html",
+  styleUrls: ["./transactions.component.scss"]
 })
 
 
 
 export class BranchComponent implements OnInit {
+  startDate: string;
+  endDate: string;
+  searchValue: string = '';
+  cardNo: string;
+  accountNo: string;
+  transactions: any[];
+
   branchData: any[];
   cardData: any;
   searchQuery: string = '';
@@ -26,30 +35,61 @@ export class BranchComponent implements OnInit {
   selectedBranch: string;
   selectedDate: Date;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private cardService: CardService, private transactionsService: TransactionsService) {
     // Simulated data (Replace with actual data from the database)
-    this.cardData = {
-      releaseDate: '2022-12-31',
-      expiryDate: '2024-12-31',
-      accountNumber: 23452365256,
-      currency: '$',
-      cardNumber: 1000,
-      cardHolderName: 'John Doe',
-      currentBalance: 5000
-    };
+    // this.cardData = {
+    //   releaseDate: '2022-12-31',
+    //   expiryDate: '2024-12-31',
+    //   accountNumber: 23452365256,
+    //   currency: '$',
+    //   cardNumber: 1000,
+    //   cardHolderName: 'John Doe',
+    //   currentBalance: 5000
+    // };
 
-    this.branchData = [
-      {
-        name: 'Alfwaihat',
-        portfolioDate: '2022-01-01',
-        serialNumber: 10234550,
+    // this.branchData = [
+    //   {
+    //     name: 'Alfwaihat',
+    //     portfolioDate: '2022-01-01',
+    //     serialNumber: 10234550,
     
-      },
+    //   },
       
-    ];
+    // ];
 
-    this.filteredCardData = this.cardData;
-    this.filteredbranchData = this.branchData;
+    // this.filteredCardData = this.cardData;
+    // this.filteredbranchData = this.branchData;
+  }
+
+  getBankStatement() {
+    // Perform input validation and error handling as needed
+
+    // Call the TransactionsService to fetch the bank statement
+    const searchData = {
+      cardNo: this.searchValue, // Use searchValue for both cardNo and accountNo
+      accountNo: this.searchValue,
+      startDate: this.startDate, // Define startDate and endDate as needed
+      endDate: this.endDate,
+    };
+    this.transactionsService.getBankStatement(searchData)
+      .subscribe(
+        (response) => {
+          // Handle the response data from the backend (e.g., populate transactions array)
+          this.transactions = response['transactions'].map((transaction) => {
+            // Format the card number
+            const firstDigits = transaction.CardNo.substr(0, 4);
+            const lastDigits = transaction.CardNo.substr(-4);
+            const maskedCardNumber = firstDigits + '****' + lastDigits;
+    
+            // Update the transaction object with the masked card number
+            return { ...transaction, maskedCardNumber };
+        });
+      },
+        (error) => {
+          console.error('Error fetching bank statement:', error);
+          // Handle error here (e.g., show an error message on the UI)
+        }
+      );
   }
 
   // Function to search for branch or agency information

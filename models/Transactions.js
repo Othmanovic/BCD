@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const mySchema = new mongoose.Schema({
   CardNo: { type: String, trim: true },
   item2: { type: String, trim: true },
-  AccountNo: { type: String, trim: true },
+  item3: { type: String, trim: true },
   item4: { type: String, trim: true },
-  item5: { type: String, trim: true },
+  AccountNo: { type: String, trim: true },
   item6: { type: String, trim: true },
   item7: { type: String, trim: true },
   item8: { type: String, trim: true },

@@ -33,11 +33,11 @@
         <div class="pricing">
             <div class="row">
                 <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة</span> </div>
-                <div class="col-4 card-info"> <span id="price">Mustafa Mohammed</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.CustomerName }}</span> </div>
             </div>
             <div class="row">
                 <div class="col-7 subheader"> <span id="name">صلاحية البطاقة</span> </div>
-                <div class="col-4 card-info"> <span id="price">02/10/2023</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.ExpiryDate }}</span> </div>
             </div>
             <div class="row">
                 <div class="col-7 subheader"> <span id="name">نوع عملة البطاقة</span> </div>
@@ -65,7 +65,7 @@
 
         <div class="pricing">
             <div class="row py-4">
-                <div class="col"> <span id="heading">تم التسليم من طرف الموظف حاتم الطرابلسي</span> </div>
+                <div class="col"> <span id="heading">تم التسليم من طرف الموظف  {{name}}</span> </div>
             </div>
             <div class="row">
                 <div class="horizontal-dotted-line">اسم الزبون</div>
