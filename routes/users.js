@@ -34,7 +34,6 @@ router.post('/register', async (req, res, next) => {
         username: req.body.username,
         password: req.body.password
     });
-
     try {
         const hash = await User.hash(req.body.password)
         newUser.password = hash;
@@ -45,7 +44,7 @@ router.post('/register', async (req, res, next) => {
 
     }
 
-    res.send('User registered');
+    // res.send('User registered');
 });
 
 

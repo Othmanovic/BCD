@@ -52,7 +52,7 @@ module.exports.addUser = function (newUser, req, res) {
 
 }
 module.exports.hash = async function (password) {
-
+    console.log("password",password);
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt)
     return hash

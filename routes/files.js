@@ -112,10 +112,10 @@ router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
 });
 
 // search
-router.get("/search", verifyToken, async (req, res) => {
+router.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
-
+    console.log("q",query);
     if (!query) {
       return res.status(400).json({ message: "Search query is required" });
     }
@@ -123,7 +123,7 @@ router.get("/search", verifyToken, async (req, res) => {
     const cards = await CardDetails.find({
       $or: [
         { AccountNumber: { $in: query } },
-        { CardAccountNumber: { $in: query } },
+        { PAN: { $in: query } },
       ],
     });
 
