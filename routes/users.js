@@ -55,12 +55,13 @@ router.post('/authenticate', async (req, res, next) => {
     const password = req.body.password;
 
     let user = await User.getUserByUsername(username);
+    // console.log("user",user);
 
     if (!user) {
         return res.json({ success: false, msg: 'User not found' });
     }
 
-    let isMatch = User.comparePassword(password, user.password)
+    let isMatch =await  User.comparePassword(password, user.password)
     console.log("isMathc: ",isMatch);
     if (isMatch) {
         const token = jwt.sign({ data: user }, config.secret, {
