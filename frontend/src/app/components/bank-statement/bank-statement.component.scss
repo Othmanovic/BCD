@@ -1,43 +1,31 @@
-body {
-    background: #ddd3;
-    height: 100vh;
-    vertical-align: middle;
-    display: flex;
-    font-family: Muli;
-    font-size: 14px
-}
-
 .card {
-    margin: auto;
-    width: 100%;
-    /* max-width: 600px; */
     padding: 4vh 0;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-top: 8px solid #F1B616;
-    border-bottom: 8px solid #F1B616;
     border-left: none;
     border-right: none;
     direction: rtl;
+    height: auto;
+    width: 100%;
+    /* Adjust this value to your desired width */
+    margin: 0 auto;
 }
 
-hr.style2 {
-    border-top: 5px double black;
-}
-
-@media(max-width:768px) {
+@media screen and (max-width: 768px) {
     .card {
-        width: 90%
+        width: 95%;
+        /* Adjust this value for smaller screens */
     }
 }
 
+
 .title {
-    color: #F1B616;
+    color: rgb(49, 46, 46);
     font-weight: bold;
     margin-bottom: 2vh;
     padding: 0 8%;
-    font-size: initial;
     text-align: center;
-
+    font-size: 3rem;
 }
 
 #details {
@@ -46,6 +34,7 @@ hr.style2 {
 
 .info {
     padding: 5% 8%;
+    color: rgb(66, 64, 64);
 
 }
 
@@ -54,22 +43,57 @@ hr.style2 {
 }
 
 #heading {
-    color: grey;
+    color: black;
+    font-weight: bold;
     line-height: 6vh
 }
 
 .pricing {
-    background-color: #ddd3;
+    background-color: rgba(104, 101, 101, 0.2);
     padding: 2vh 8%;
-    font-weight: 400;
-    line-height: 2.5;
-    box-shadow: 4px 6px 10px 6px rgba(0, 0, 0, 0.19);
+    line-height: 2;
+    max-height: 60vh; /* Adjust the max height as needed */
+    overflow-y: auto; /* Add vertical scroll if needed */
+}
 
+.pricing-table {
+    background-color: rgba(104, 101, 101, 0.2);
+    padding: 2vh 2%;
+    line-height: 2;
+    max-height: 60vh; /* Adjust the max height as needed */
+    overflow-y: auto; /* Add vertical scroll if needed */
+}
+
+.pricing span {
+    font-size: medium;
+}
+
+.card-info {
+    font-size: medium;
+    color: rgb(49, 48, 48);
+}
+
+.horizontal-dotted-line {
+    display: flex;
+    width: 300px;
+    padding: 5px;
+    font-size: small;
+    color: black;
+}
+
+.horizontal-dotted-line:after {
+    border-bottom: 1px dotted black;
+    content: '';
+    flex: 1;
 }
 
 
 .pricing .col-3 {
     padding: 0
+}
+
+.subheader {
+    color: black;
 }
 
 .total {
@@ -85,74 +109,61 @@ hr.style2 {
 .footer {
     padding: 0 8%;
     font-size: large;
-    color: black
+    color: black;
+    margin-top: 0;
+    padding-top: 0;
+    position: static;
 }
 
-.footer img {
-    height: 5vh;
-    opacity: 0.2
-}
 
-.footer a {
-    color: #F1B616;
-}
-
-.footer .col-10,
-.col-2 {
-    display: flex;
-    padding: 3vh 0 0;
-    align-items: center
-}
-
-.footer .row {
-    margin: 0
-}
-
-.error-template {
-    padding: 40px 15px;
-    text-align: center;
-}
-
-.error-actions {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.error-actions .btn {
-    margin-right: 10px;
+.footer .btn {
     cursor: pointer;
+    border: none;
+    text-decoration: none;
     background-color: #F1B616;
     color: white;
 }
 
-.print-button button {
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px; /* Increase the margin for spacing */
+}
+
+th, td {
+    text-align: center;
+    padding: 8px; /* Increase padding for spacing and appearance */
+    border: 1px solid #ddd;
+    font-size: 12px; /* Adjust font size as needed */
+}
+
+td {
+    background-color: white;
+    color: black;
+}
+
+thead {
     background-color: #F1B616;
     color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold; /* Make table header text bold */
 }
 
-.print-button button:hover {
-    background-color: #d5a614;
+tbody tr:hover {
+    background-color: #f2f2f2; /* Change the background color on hover */
 }
 
+/* Responsive table styles */
 @media screen and (max-width: 768px) {
-
-    /* Responsive styles */
-    .print-button {
-        bottom: 10px;
-        right: 10px;
-        background-color: #F1B616;
-
+    table {
+        font-size: 10px; /* Decrease font size for small screens */
     }
-
-    .print-button button {
-        font-size: 14px;
-        padding: 8px 16px;
+    th, td {
+        padding: 6px; /* Decrease padding for small screens */
     }
 }
+
+.pricing table {
+    width: 100%; /* Make the table responsive within its container */
+}
+
+/* Add overflow and max-height to make the table scrollable if it exceeds the page */

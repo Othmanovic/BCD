@@ -1,5 +1,5 @@
 <div class="card-details">
-  <h2>تفاصيل بطاقة الفيزا</h2>
+  <h2 class="direction">تفاصيل بطاقة الفيزا</h2>
 
   <div class="search-bar">
     <input type="text" placeholder="ابحث باستخدام رقم الحساب أو رقم البطاقة أو الاسم" [(ngModel)]="searchQuery"
@@ -8,7 +8,7 @@
   </div>
   <br>
 
-  <h3>نتائج البحث</h3>
+  <h3 class="direction">نتائج البحث</h3>
   <table>
     <thead>
       <tr>
@@ -27,30 +27,30 @@
       </tr>
     </tbody>
   </table>
-  <h3>بيانات البطاقة</h3>
+  <h3 class="direction">بيانات البطاقة</h3>
   <table>
     <thead>
       <tr>
-        <th>رقم الحساب</th>
-        <th>رقم البطاقة</th>
-        <th>اسم صاحب البطاقة</th>
-        <th>تاريخ الاصدار</th>
-        <th>تاريخ الانتهاء</th>
-        <th>القيمة المحجوزة</th>
-        <th>الرصيد</th>
         <th>العملة</th>
+        <th>الرصيد</th>
+        <th>القيمة المحجوزة</th>
+        <th>تاريخ الانتهاء</th>
+        <th>تاريخ الاصدار</th>
+        <th>اسم صاحب البطاقة</th>
+        <th>رقم البطاقة</th>
+        <th>رقم الحساب</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let result of searchResults">
-        <td>{{ result.AccountNumber }}</td>
-        <td>{{ result.maskedCardNumber }}</td>
-        <td>{{ result.CustomerName }}</td>
-        <td>{{ result.CreationDate }}</td>
-        <td>{{ result.ExpiryDate }}</td>
-        <td>{{ result.reservedValue }}</td>
-        <td>{{ result.balance }}</td>
         <td>{{ result.currency }}</td>
+        <td>{{ result.balance }}</td>
+        <td>{{ result.reservedValue }}</td>
+        <td>{{ result.ExpiryDate }}</td>
+        <td>{{ result.CreationDate }}</td>
+        <td>{{ result.CustomerName }}</td>
+        <td>{{ result.maskedCardNumber }}</td>
+        <td>{{ result.AccountNumber }}</td>
       </tr>
     </tbody>
   </table>

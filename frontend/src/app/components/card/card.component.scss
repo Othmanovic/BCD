@@ -1,5 +1,5 @@
 .card-details {
-    direction: rtl;
+    // direction: rtl;
     margin: 20px;
     /* Default margin for larger screens */
 
@@ -7,6 +7,10 @@
         margin: 10px;
         /* Adjust margin for smaller screens */
     }
+}
+
+.direction {
+    direction: rtl;
 }
 
 .visa-card {
@@ -52,6 +56,10 @@ tbody tr:hover {
     table {
         font-size: 14px;
     }
+}
+
+.print-button {
+    direction: rtl;
 }
 
 .print-button button {

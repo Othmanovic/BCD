@@ -1,104 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Successful Payment</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
-</head>
-
-<body>
-
-    <div class="card" id="download">
-        <div class="title"><img src="../../../assets/icons/bank-logo-1.png"></div>
-        <br>
-        <br>
-        <div class="title">كشف حساب بطاقة</div>
-        <div class="info">
-            <div class="row">
-                <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">04/02/2004</span>
-                </div>
-                <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span
-                        id="details">334982371497</span> </div>
-            </div>
-        </div>
-        <div class="pricing">
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>الفرع</th>
-                    <th>تاريخ الحقيبة</th>
-                    <th>الرقم التسلسلي</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr >
-                    <td>{{ cardData.CustomerName }}</td>
-                    <td>{{ cardData.CardNumber }}</td>
-                    <td>{{ cardData.serialNumber }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            
-             
-        </div>
-        <div class="row">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-        </div>
-
-
-        <div class="pricing">
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>تاريخ الاصدار</th>
-                    <th>تاريخ الانتهاء</th>
-                    <th>رقم الحساب</th>
-                    <th>العملة</th>
-                    <th>رقم البطاقة</th>
-                    <th>اسم صاحب البطاقة</th>
-                    <th>الرصيد الحالي</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ cardData.CustomerName }}</td>
-                    <td>{{ cardData.expiryDate }}</td>
-                    <td>{{ cardData.AccountNo }}</td>
-                    <td>{{ cardData.Currency }}</td>
-                    <td>{{ cardData.CardNo }}</td>
-                    <td>{{ cardData.cardHolderName }}</td>
-                    <td>{{ cardData.currentBalance }}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-        </div>
-
-        <div class="footer" (click)="downloadAngularPageAsPdf()">
-            <div class="error-actions">
-                <a id="download_button" class="btn btn-lg"><span class="glyphicon glyphicon-print mx-2"></span>
-                    Print </a>
-            </div>
-        </div>
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,157 +16,104 @@
 
 <body>
 
-  <div class="card">
+  <div class="card" id="download">
     <div class="title"><img src="../../../assets/icons/bank-logo-1.png"></div>
     <div style="color: rgb(63, 58, 58);" class="title">
       <h2>كشف حساب لبطاقة من نوع</h2> BOCD-MC-DB-Gold
     </div>
     <div class="info">
       <div class="row">
-        <div class="col-7"> <span id="heading">Date</span><br> <span id="details">21213213</span>
+        <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">{{currDate | date:'dd-MM-yyyy'}}</span>
         </div>
-        <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span id="details">{{cardData.AccountNo}}</span>
+        <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span id="details">{{ transactions[0].AccountNo }}</span>
         </div>
       </div>
     </div>
     <div class="pricing">
       <div class="row">
-        <div class="col-9"> <span id="name">رقم البطاقة</span> </div>
-        <div class="col-3"> <span id="price">4423424234324234</span> </div>
+        <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة:</span> </div>
+        <div class="col-4 card-info"> <span id="price">{{ transactions[0].CustomerName }}</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">اسم حامل البطاقة</span> </div>
-        <div class="col-3"> <span id="price">Mustafa Alhadiri</span> </div>
+        <div class="col-7 subheader"> <span id="name">تاريخ الاصدار:</span> </div>
+        <div class="col-4 card-info"> <span id="price">23/3/2023</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">تاريخ الاصدار:</span> </div>
-        <div class="col-3"> <span id="price">23/3/2023</span> </div>
+        <div class="col-7 subheader"> <span id="name">تاريخ الصلاحية:</span> </div>
+        <div class="col-4 card-info"> <span id="price">23/3/2023</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">تاريخ الصلاحية</span> </div>
-        <div class="col-3"> <span id="price">23/3/2023</span> </div>
+        <div class="col-7 subheader"> <span id="name">القيمة المحجوزة:</span> </div>
+        <div class="col-4 card-info"> <span id="price">10000</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">القيمة المحجوزة</span> </div>
-        <div class="col-3"> <span id="price">10000</span> </div>
+        <div class="col-7 subheader"> <span id="name">الرصيد:</span> </div>
+        <div class="col-4 card-info"> <span id="price">500.0</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">الرصيد</span> </div>
-        <div class="col-3"> <span id="price">500.0</span> </div>
+        <div class="col-7 subheader"> <span id="name">عملة البطاقة:</span> </div>
+        <div class="col-4 card-info"> <span id="price">USD</span> </div>
       </div>
       <div class="row">
-        <div class="col-9"> <span id="name">عملة البطاقة</span> </div>
-        <div class="col-3"> <span id="price">USD</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">الحجز المصرفي</span> </div>
-        <div class="col-3"> <span id="price">00.00</span> </div>
+        <div class="col-7 subheader"> <span id="name">الحجز المصرفي:</span> </div>
+        <div class="col-4 card-info"> <span id="price">00.00</span> </div>
       </div>
     </div>
     <!-- <hr class="style2"> -->
 
     <br>
-    <div class="pricing">
-      <table class="table table-striped">
+    <div class="pricing-table">
+      <table class="table-striped">
         <thead>
           <tr>
-            <th>تاريخ العملية</th>
-            <th>تاريخ تنفيذ العملية</th>
-            <th>نوع العملية</th>
-            <th>القيمة بعملة البطاقة</th>
-            <th>العملة</th>
-            <th>القيمة المسحوبة</th>
-            <th>العملة المسحوبة</th>
-            <th>نوع السحب</th>
             <th>مكان السحب</th>
+            <th>نوع السحب</th>
+            <th>العملة المسحوبة</th>
+            <th>القيمة المسحوبة</th>
+            <th>العملة</th>
           </tr>
         </thead>
         <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.WithdrawalLocation }}</td>
+            <td>{{ transaction.WithdrawalType }}</td>
+            <td>{{ transaction.item22 }}</td>
+            <td>{{ transaction.item18 | decimalPoint }}</td>
+            <td>{{ transaction.Currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+     
+      <table class="table-striped">
+        <thead>
           <tr>
-            <td>{{ cardData.TrxDate }}</td>
-            <td>{{ cardData.TrxActualDate }}</td>
-            <td>{{ cardData.TrxType }}</td>
-            <td>{{ cardData.item11 }}</td>
-            <td>{{ cardData.Currency }}</td>
-            <td>{{ cardData.WithdrawalAmount }}</td>
-            <td>{{ cardData.currentBalance }}</td>
-            <td>{{ cardData.WithdrawalType }}</td>
-            <td>{{ cardData.WithdrawalLocation }}</td>
+           
+            <th>القيمة بعملة البطاقة</th>
+            <th>رقم البطاقة</th>
+            <th>نوع العملية</th>
+            <th>تاريخ تنفيذ العملية</th>
+            <th>تاريخ العملية</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.item16 | decimalPoint }}</td>
+            <td>{{ transaction.maskedCardNumber }}</td>
+            <td>{{ transaction.TrxType }}</td>
+            <td>{{ transaction.TrxActualDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ transaction.TrxDate | date:'dd-MM-yyyy' }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <br>
 
-    <!-- <div class="error-actions">
-
-
-      <a href="/customer/dashboard"
-        style="margin-left: 60px; border: none; text-decoration:none; background-color:maroon"
-        class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-        Take Me Home </a>
-
-      <a onclick="togglePopup()" style="margin-left: 20px;" class="btn btn-default btn-lg"><span
-          class="glyphicon glyphicon-envelope"></span>
-        Contact
-        Support </a>
-
-    </div> -->
-
-    <div class="pricing">
-      <div class="row">
-        <div class="col-9"> <span id="name">عدد عمليات الشحن:</span> </div>
-        <div class="col-3"> <span id="price">1</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">قيمة السحب الكاش:</span> </div>
-        <div class="col-3"> <span id="price">44 pages</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">عدد عمليات الكاش:</span> </div>
-        <div class="col-3"> <span id="price">22 copies</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">قيمة الشحن:</span> </div>
-        <div class="col-3"> <span id="price">Shop Name</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">قيمة السحب المشتريات:</span> </div>
-        <div class="col-3"> <span id="price">Agugu Shop</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">عدد عمليات الشراء:</span> </div>
-        <div class="col-3"> <span id="price">Agugu Shop</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">قيمة العمولات:</span> </div>
-        <div class="col-3"> <span id="price">Agugu Shop</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-9"> <span id="name">عدد العمولات:</span> </div>
-        <div class="col-3"> <span id="price">Agugu Shop</span> </div>
-      </div>
-    </div>
-    <!-- <hr class="style2"> -->
 
     <div class="footer" (click)="downloadAngularPageAsPdf()">
       <div class="error-actions">
         <a id="download_button" class="btn btn-lg"><span class="glyphicon glyphicon-print mx-2"></span>
           Print </a>
       </div>
-    </div>
-
-    <div class="footer">
-      <!-- <div class="error-actions">
-
-        <a onclick="togglePopup()" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span>
-          Contact
-          Support </a>
-
-        <a href="/customer/dashboard" style="margin-left: 100px; border: none; text-decoration:none;"
-          class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-          Take Me Home </a>
-      </div> -->
     </div>
   </div>
 </body>

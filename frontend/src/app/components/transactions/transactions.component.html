@@ -76,6 +76,6 @@
 
   <!-- <div class="print-button" *ngIf="transactions.length > 0"> -->
   <div class="print-button" *ngIf="transactions != null">
-    <button [routerLink]="['/statement-report', transactions[0]._id]">طباعة التقرير</button>
+    <button routerLink="/statement-report">طباعة التقرير</button>
   </div>
 </div>

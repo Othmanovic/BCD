@@ -24,16 +24,24 @@
         <div class="title">نموذج تسليم بطاقة</div>
         <div class="info">
             <div class="row">
-                <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">04/02/2004</span>
+                <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">{{currDate | date:'dd-MM-yyyy'}}</span>
                 </div>
                 <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span
-                        id="details">334982371497</span> </div>
+                        id="details">{{ cardData.AccountNumber }}</span> </div>
             </div>
         </div>
         <div class="pricing">
             <div class="row">
                 <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة</span> </div>
                 <div class="col-4 card-info"> <span id="price">{{ cardData.CustomerName }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">رقم البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.PAN.replace(' 0', '') }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">تاريخ الاصدار</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.CreationDate | date:'dd/MM/yyyy' }}</span> </div>
             </div>
             <div class="row">
                 <div class="col-7 subheader"> <span id="name">صلاحية البطاقة</span> </div>
@@ -47,15 +55,8 @@
                 <div class="col-7 subheader"> <span id="name">رصيد البطاقة</span> </div>
                 <div class="col-4 card-info"> <span id="price">1.34</span> </div>
             </div>
-            <div class="row">
-                <div class="col-7 subheader"> <span id="name">الرقم التسلسلي في الحافظة</span> </div>
-                <div class="col-4 card-info"> <span id="price">12</span> </div>
-            </div>
         </div>
         <div class="row">
-            <br>
-            <br>
-            <br>
             <br>
             <br>
             <br>

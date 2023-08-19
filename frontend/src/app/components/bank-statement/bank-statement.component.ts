@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
+import { SharedService } from 'src/app/services/shared.service';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
 
@@ -13,31 +14,23 @@ export class BankStatementComponent implements OnInit {
 
   rowId: string;
   name = JSON.parse(localStorage.getItem('user'))['username'];
-  cardData: any; // Variable to store the fetched card data
+  currDate: number;
+  transactions: any[] | null;
 
-  constructor(private route: ActivatedRoute, private transactionsService: TransactionsService) {}
+  constructor(private sharedService: SharedService) {}
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.rowId = params['id'];
-      console.log('id', this.rowId);
-      
-      // Fetch the card data using the cardService based on the row ID
-      this.transactionsService.getCardData(this.rowId).subscribe(
-        (response) => {
-          if (response['success']) {
-            this.cardData = response['cardData'];
-          }
-          else {
-            alert('Error, could not find this account or card')
-          }
-        },
-        (error) => {
-          console.error('Error fetching card data:', error);
-          // Handle error here (e.g., show an error message on the UI)
-        }
-      );
-    });
+  ngOnInit() {
+    // Retrieve transactions data from the shared service
+    this.currDate = Date.now()
+    this.transactions = this.sharedService.getTransactionsData();
+    console.log("Transactions: ",this.transactions);
+
+    if (!this.transactions) {
+      const storedData = localStorage.getItem('transactionsData');
+      if (storedData) {
+        this.transactions = JSON.parse(storedData);
+      }
+    }
   }
 
   downloadAngularPageAsPdf() {

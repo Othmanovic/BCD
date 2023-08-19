@@ -92,9 +92,12 @@ export class CardComponent implements OnInit {
   ngOnInit() {}
 
   performSearch() {
-    // Include the trailing zero in the search query
-    const formattedSearchQuery = this.searchQuery + ' 0';
-  
+    // Check if the search query is a PAN number
+    const isPANNumber = /^[0-9]{16}$/.test(this.searchQuery);
+
+    // Include the trailing zero in the search query if it's a PAN number
+    const formattedSearchQuery = isPANNumber ? this.searchQuery + ' 0' : this.searchQuery;
+
     this.cardService.searchCards(formattedSearchQuery).subscribe(
       (response) => {
         this.searchResults = response['cards'].map((card) => {
@@ -112,7 +115,8 @@ export class CardComponent implements OnInit {
         // Handle error here (e.g., show an error message on the UI)
       }
     );
-  }
+}
+
 
   // performSearch() {
   //   this.cardService.searchCards(this.searchQuery).subscribe(

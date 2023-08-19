@@ -13,10 +13,12 @@ export class CardDeliveryReportComponent implements OnInit {
   rowId: string;
   name = JSON.parse(localStorage.getItem('user'))['username'];
   cardData: any; // Variable to store the fetched card data
-
+  currDate: any;
+  
   constructor(private route: ActivatedRoute, private cardService: CardService) {}
 
   ngOnInit(): void {
+    this.currDate = Date.now()
     this.route.params.subscribe(params => {
       this.rowId = params['id'];
       console.log('id', this.rowId);

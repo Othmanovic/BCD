@@ -97,7 +97,8 @@ export class LandingPageComponent implements OnInit {
         this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
         this.router.navigate(['./clients'])
       } else {
-        this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
+        // this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });
+        alert("Wrong Username Or Password")
       }
 
     })

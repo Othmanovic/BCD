@@ -7,6 +7,7 @@ import { InventoryService } from "../../services/inventory/inventory.service";
 import domtoimage from 'dom-to-image';
 import { CardService } from "src/app/services/card/card.service";
 import { TransactionsService } from "src/app/services/transactions/transactions.service";
+import { SharedService } from "src/app/services/shared.service";
 
 @Component({
   selector: "app-branch",
@@ -35,7 +36,8 @@ export class BranchComponent implements OnInit {
   selectedBranch: string;
   selectedDate: Date;
 
-  constructor(private elementRef: ElementRef, private cardService: CardService, private transactionsService: TransactionsService) {
+
+  constructor(private elementRef: ElementRef, private sharedService: SharedService, private cardService: CardService, private transactionsService: TransactionsService) {
     // Simulated data (Replace with actual data from the database)
     // this.cardData = {
     //   releaseDate: '2022-12-31',
@@ -52,13 +54,19 @@ export class BranchComponent implements OnInit {
     //     name: 'Alfwaihat',
     //     portfolioDate: '2022-01-01',
     //     serialNumber: 10234550,
-    
+
     //   },
-      
+
     // ];
 
     // this.filteredCardData = this.cardData;
     // this.filteredbranchData = this.branchData;
+  }
+
+
+  myFunc(event) {
+    console.log("Event", event.target.value);
+
   }
 
   getBankStatement() {
@@ -80,11 +88,15 @@ export class BranchComponent implements OnInit {
             const firstDigits = transaction.CardNo.substr(0, 4);
             const lastDigits = transaction.CardNo.substr(-4);
             const maskedCardNumber = firstDigits + '****' + lastDigits;
-    
+
+            
             // Update the transaction object with the masked card number
             return { ...transaction, maskedCardNumber };
-        });
-      },
+          });
+          this.sharedService.setTransactionsData(this.transactions);
+          console.log("Transactions in Branch",this.transactions);
+          localStorage.setItem('transactionsData', JSON.stringify(this.transactions));
+        },
         (error) => {
           console.error('Error fetching bank statement:', error);
           // Handle error here (e.g., show an error message on the UI)
@@ -113,7 +125,7 @@ export class BranchComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   printReport() {
     const reportElement = this.elementRef.nativeElement.querySelector('.table');
@@ -141,5 +153,5 @@ export class BranchComponent implements OnInit {
   }
 
 
- 
+
 }
