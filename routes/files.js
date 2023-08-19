@@ -5,6 +5,8 @@ const CardDetails = require("../models/CardDetails");
 const Transactions = require("../models/Transactions");
 const verifyToken = require("../middlewares/verifyTokenMiddleware");
 const Accounts = require("../models/Accounts");
+const readline = require('readline');
+const { Readable } = require('stream');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -112,7 +114,74 @@ router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
   }
 });
 
-router.post("/upload3", verifyToken, upload.single("file3"), (req, res) => {
+router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) => {
+  // console.log("upload3", req.file);
+
+  // if (!req.file) {
+  //   return res.status(400).json({ message: "No file received" });
+  // }
+
+  // try {
+  //   var fileContent = String(req.file.buffer);
+  //   var lines = fileContent.split("\r\n");
+
+  //   lines = lines.slice(1);
+
+  //   lines.forEach(async (line) => {
+  //     var data = line.split("|");
+  //     data = data.slice(1, -1);
+
+  //     const obj = {
+  //       AccountNo: data[0],
+  //       CardNo: data[1],
+  //       Mbr: data[2],
+  //       AccountLimit: data[3],
+  //       Balance: data[4],
+  //       AccFlag: data[5],
+  //       DueAmount: data[6],
+  //       OverDueAmount: data[7],
+  //       OverDueDays: data[8],
+  //       OverLimitAmount: data[9],
+  //       CmsStatus: data[10],
+  //       OnlineStatus: data[11],
+  //       CreateDate: data[12],
+  //       ExpiryDate: data[13],
+  //       AccountStatus: data[14],
+  //       AccountCurrency: data[15],
+  //       ActivationDate: data[16],
+  //       AmountOnHold: data[17],
+  //       ExternalAccount: data[18],
+  //       AccountBranch: data[19],
+  //       AccountType: data[20],
+  //       LinkedContract: data[21],
+  //       ClientName: data[22],
+  //       AccountState: data[23],
+  //       ProductType: data[24],
+  //       DomesticMPProfile: data[25],
+  //       InternationalMPProfile: data[26],
+  //       LinkedCards: data[27],
+  //       LinkedValidCards: data[28],
+  //       AccDAFProfileNameDom: data[29],
+  //       AccDAFProfileNameInt: data[30],
+  //       ArrestedAmounts: data[31],
+  //       RetailBalance: data[32],
+  //       CashBalance: data[33],
+  //       FeesBalance: data[34],
+  //       InterestBalance: data[35],
+  //       PaymentsBalance: data[36],
+  //       OthersBalance: data[37],
+  //       InstallmentBalance: data[38],
+  //     };
+  //     const newDocument = new Accounts(obj);
+  //     let result = await newDocument.save();
+  //   });
+  //   res.json({ success: true, msg: "Documents inserted successfully" });
+  // } catch (e) {
+  //   // Printing error
+  //   console.log("Error:", e.stack);
+  //   res.json({ success: false, msg: "Error while parsing file" });
+  // }
+
   console.log("upload3", req.file);
 
   if (!req.file) {
@@ -120,60 +189,82 @@ router.post("/upload3", verifyToken, upload.single("file3"), (req, res) => {
   }
 
   try {
-    var fileContent = String(req.file.buffer);
-    var lines = fileContent.split("\r\n");
+    const input = Readable.from(req.file.buffer.toString('utf8'));
+    // Create a readline interface
+    const rl = readline.createInterface({
+      input,
+      output: process.stdout,
+      terminal: false
+    });
 
-    lines = lines.slice(1);
+    // Skip the header line (if any)
+    let isFirstLine = true;
 
-    lines.forEach(async (line) => {
+    rl.on('line', async (line) => {
+      // Skip the first line (header line)
+      if (isFirstLine) {
+        isFirstLine = false;
+        return;
+      }
+
       var data = line.split("|");
       data = data.slice(1, -1);
 
       const obj = {
-        AccountNo: data[0],
-        CardNo: data[1],
-        Mbr: data[2],
-        AccountLimit: data[3],
-        Balance: data[4],
-        AccFlag: data[5],
-        DueAmount: data[6],
-        OverDueAmount: data[7],
-        OverDueDays: data[8],
-        OverLimitAmount: data[9],
-        CmsStatus: data[10],
-        OnlineStatus: data[11],
-        CreateDate: data[12],
-        ExpiryDate: data[13],
-        AccountStatus: data[14],
-        AccountCurrency: data[15],
-        ActivationDate: data[16],
-        AmountOnHold: data[17],
-        ExternalAccount: data[18],
-        AccountBranch: data[19],
-        AccountType: data[20],
-        LinkedContract: data[21],
-        ClientName: data[22],
-        AccountState: data[23],
-        ProductType: data[24],
-        DomesticMPProfile: data[25],
-        InternationalMPProfile: data[26],
-        LinkedCards: data[27],
-        LinkedValidCards: data[28],
-        AccDAFProfileNameDom: data[29],
-        AccDAFProfileNameInt: data[30],
-        ArrestedAmounts: data[31],
-        RetailBalance: data[32],
-        CashBalance: data[33],
-        FeesBalance: data[34],
-        InterestBalance: data[35],
-        PaymentsBalance: data[36],
-        OthersBalance: data[37],
-        InstallmentBalance: data[38],
-      };
-      const newDocument = new Accounts(obj);
-      let result = await newDocument.save();
+              AccountNo: data[0],
+              CardNo: data[1],
+              Mbr: data[2],
+              AccountLimit: data[3],
+              Balance: data[4],
+              AccFlag: data[5],
+              DueAmount: data[6],
+              OverDueAmount: data[7],
+              OverDueDays: data[8],
+              OverLimitAmount: data[9],
+              CmsStatus: data[10],
+              OnlineStatus: data[11],
+              CreateDate: data[12],
+              ExpiryDate: data[13],
+              AccountStatus: data[14],
+              AccountCurrency: data[15],
+              ActivationDate: data[16],
+              AmountOnHold: data[17],
+              ExternalAccount: data[18],
+              AccountBranch: data[19],
+              AccountType: data[20],
+              LinkedContract: data[21],
+              ClientName: data[22],
+              AccountState: data[23],
+              ProductType: data[24],
+              DomesticMPProfile: data[25],
+              InternationalMPProfile: data[26],
+              LinkedCards: data[27],
+              LinkedValidCards: data[28],
+              AccDAFProfileNameDom: data[29],
+              AccDAFProfileNameInt: data[30],
+              ArrestedAmounts: data[31],
+              RetailBalance: data[32],
+              CashBalance: data[33],
+              FeesBalance: data[34],
+              InterestBalance: data[35],
+              PaymentsBalance: data[36],
+              OthersBalance: data[37],
+              InstallmentBalance: data[38],
+            };
+
+            try {
+              const newDocument = new Accounts(obj);
+              let result = await newDocument.save();
+            } catch (e) {
+              console.error("Error while saving document:", e);
+              res.json({ success: false, msg: "Error while saving document" });
+              return;
+            }
     });
-    res.json({ success: true, msg: "Documents inserted successfully" });
+
+    rl.on('close', () => {
+      res.json({ success: true, msg: "Documents inserted successfully" });
+    });
   } catch (e) {
     // Printing error
     console.log("Error:", e.stack);
