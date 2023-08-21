@@ -109,7 +109,7 @@ export class CardComponent implements OnInit {
         this.searchResults = response['cards'].map((card) => {
           // Format the card number
           const firstDigits = card.PAN.substr(0, 4);
-          const lastDigits = card.PAN.substr(-4);
+          const lastDigits = card.PAN.substr(-6);
           const maskedCardNumber = firstDigits + '****' + lastDigits;
 
           // Update the card object with the masked card number

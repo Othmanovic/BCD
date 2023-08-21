@@ -6,6 +6,8 @@ import {
 import domtoimage from 'dom-to-image';
 import html2canvas from 'html2canvas';
 import { FilterPipe } from "../filter.pipe";
+import { CardService } from "src/app/services/card/card.service";
+import { SharedService } from "src/app/services/shared.service";
 
 // const logo = require('../../../assets/icons/bank-logo-1').default as string;
 interface Client {
@@ -26,119 +28,84 @@ interface Client {
 })
 export class ClientsComponent implements OnInit {
 
-  clients: Client[] = [
+  cardInfo: any;
+  searchResults: any[];
+  account: any[];
+  transactions: any[];
+  searchQuery: string = '';
 
-    { accountNumber: '354656787', idNumber: '11111', name: 'Mustafa Mohammed', amount: 30000, branch: 'الحدائق', slipDate: '03/12/2021', serialNumber: '1234551' },
-    { accountNumber: '345467765', idNumber: '22222', name: 'Othmanovic Hadirov', amount: 10000, branch: 'الحدائق', slipDate: '03/07/2022', serialNumber: '1234551' },
-  ];
+  filteredCardInfo: any;
+  filteredTransactionHistory: any[];
 
-  bankClients: HTMLElement[];
-  _filterText: string = '';
-  filteredClients: any[];
+  constructor(
+    private elementRef: ElementRef,
+    private cardService: CardService,
+    private sharedService: SharedService,
+  ) { }
 
-  get filterText() {
-    return this._filterText;
-  }
+  ngOnInit() { }
 
-  set filterText(value: string) {
-    this._filterText = value;
-    this.filteredClients = this.filerClientsByName(value)
-  }
+  performSearch() {
+    // Check if the search query is a PAN number
+    const isPANNumber = /^[0-9]{16}$/.test(this.searchQuery);
 
-  filerClientsByName(filterTerm: string) {
-    if (this.clients.length === 0 || this.filterText === '') {
-      return this.clients;
-    } else {
-      return this.clients.filter((client) => {
-        console.log("in filter function", this.clients)
-        return client.name.toLowerCase() === filterTerm.toLowerCase();
-      });
-    }
-  }
+    // Include the trailing zero in the search query if it's a PAN number
+    const formattedSearchQuery = isPANNumber ? this.searchQuery + ' 0' : this.searchQuery;
 
+    this.cardService.searchCards(formattedSearchQuery).subscribe(
+      (response) => {
+        this.searchResults = response['cards'].map((card) => {
+          // Format the card number
+          const firstDigits = card.PAN.substr(0, 4);
+          const lastDigits = card.PAN.substr(-6);
+          const maskedCardNumber = firstDigits + '****' + lastDigits;
 
-  ngOnInit(): void {
-    this.filteredClients = this.clients;
+          // Update the card object with the masked card number
+          return { ...card, maskedCardNumber };
+        });
 
-    CrumbTrailComponent.crumbs = [
-      {
-        icon: Icon.Welcome,
-        title: "Welcome"
+        this.account = response['account'].map((account) => {
+          return { ...account };
+        });
+        this.sharedService.setCardsData(this.searchResults);
+        this.sharedService.setAccountCardsData(this.account);
+      },
+      (error) => {
+        console.error('Error searching cards:', error);
+        // Handle error here (e.g., show an error message on the UI)
       }
-    ];
+    );
   }
 
-  // clientData: any[];
-
-
-  // searchQuery: string;
-  // searchResults: any;
-
-  constructor(private elementRef: ElementRef) {
-    // this.clientData = [
-    //   {
-    //     accountNumber: '1234567890',
-    //     idNumber: '123456789',
-    //     name: 'Mostafa Alhadiri',
-    //     amount: 10000,
-    //     branch: 'Main Branch',
-    //     slipDate: '2023-06-15',
-    //     serialNumber: 'ABC123'
-
-    //   },
-    // ];
-
-    // this.filteredClientData = this.clientData;
+  getAccountCurrency(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';
   }
 
+  getAccountArrestedAmounts(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.ArrestedAmounts : 'N/A';
+  }
 
+  getAccountBalance(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.Balance : 'N/A';
+  }
 
-  // search() {
-
-  //   this.searchResults = {
-  //     accountNumber: '1234567890',
-  //     idNumber: '123456789',
-  //     name: 'Mostafa Alhadiri',
-  //     amount: 10000,
-  //     branch: 'Main Branch',
-  //     slipDate: '2023-06-15',
-  //     serialNumber: 'ABC123'
-  //   };
-  // }
 
   // performSearch() {
-  //   // Filter the card info data based on search query
-  //   this.filteredClientData = this.clientData.filter((item: any) => {
-  //     return (
-  //       item.accountNumber.includes(this.searchQuery) ||
-  //       item.idNumber.includes(this.searchQuery) ||
-  //       item.name.includes(this.searchQuery) ||
-  //       item.amount.includes(this.searchQuery) ||
-  //       item.branch.includes(this.searchQuery) ||
-  //       item.slipDate.includes(this.searchQuery) ||
-  //       item.serialNumber.includes(this.searchQuery)
-  //     );
-  //   });
-
-
+  //   this.cardService.searchCards(this.searchQuery).subscribe(
+  //     (result) => {
+  //       this.filteredCardInfo = result.cardInfo;
+  //       this.filteredTransactionHistory = result.transactions;
+  //     },
+  //     (error) => {
+  //       console.error('Error searching cards:', error);
+  //     }
+  //   );
   // }
 
-  // filterProducts(): void {
-  //   const term = this.searchTerm.toLowerCase();
 
-  //   this.bankClients.forEach((product) => {
-  //     const title = product.getElementsByClassName('record')[0].textContent;
-  //     product.style.display = title.toLowerCase().includes(term) ? 'none' : 'table-row';
-  //   });
-  // }
-
-  // onKeyUp(event: KeyboardEvent): void {
-  //   this.filterProducts();
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.bankClients = Array.from(document.getElementsByClassName('table')) as HTMLElement[];
-  // }
 
   printReport() {
     const reportElement = this.elementRef.nativeElement.querySelector('.table');
@@ -151,7 +118,7 @@ export class ClientsComponent implements OnInit {
       .then((dataUrl: string) => {
         const printWindow = window.open('', '_blank');
         printWindow.document.open();
-        printWindow.document.write('<html><head><title>معلومات العميل</title></head><body><img src="' + dataUrl + '" /></body></html>');
+        printWindow.document.write('<html><head><title>Visa Card Report</title></head><body><img src="' + dataUrl + '" /></body></html>');
         printWindow.document.close();
         printWindow.onload = function () {
           printWindow.print();
@@ -164,4 +131,5 @@ export class ClientsComponent implements OnInit {
         console.error('Error generating report:', error);
       });
   }
+
 }

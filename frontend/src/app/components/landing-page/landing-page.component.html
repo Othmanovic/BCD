@@ -19,11 +19,11 @@
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username"  [(ngModel)]="username" name="username"  />
+            <input type="text" placeholder="اسم المستخدم"  [(ngModel)]="username" name="username"  />
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" [(ngModel)]="password" name="password" />
+            <input type="password" placeholder="الرمز السري" [(ngModel)]="password" name="password" />
           </div>
           <input type="submit" value="Login" class="btn solid" />
         </form>
@@ -32,29 +32,29 @@
         <!-- ******************  Sign up  ************************************ -->
 
         <form (submit)="onRegister()" action="#" class="sign-up-form">
-          <h2 class="title">Sign up</h2>
+          <h2 class="title">تسجيل حساب</h2>
           <div class="alert-danger">
             <flash-messages></flash-messages>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" [(ngModel)]="firstname" name="firstname" placeholder="First Name" />
+            <input type="text" [(ngModel)]="firstname" name="firstname" placeholder="الاسم باللفة العربية" />
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" [(ngModel)]="lastname" name="lastname" placeholder="Last Name" />
+            <input type="text" [(ngModel)]="lastname" name="lastname" placeholder="اسم العائلة باللفة العربية" />
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" [(ngModel)]="username" name="username" placeholder="Username" />
+            <input type="text" [(ngModel)]="username" name="username" placeholder="اسم المستخدم" />
           </div>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" [(ngModel)]="email" name="email" placeholder="Email" />
+            <input type="email" [(ngModel)]="email" name="email" placeholder="البريد الالكتروني" />
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" [(ngModel)]="password" name="password" placeholder="Password" />
+            <input type="password" [(ngModel)]="password" name="password" placeholder="الرمز السري" />
           </div>
           <input type="submit" class="btn" value="Sign up" />
         </form>
@@ -67,11 +67,10 @@
     <div class="panels-container">
       <div class="panel left-panel">
         <div class="content">
-          <h3>New here ?</h3>
-          <p>
-            UTM-OPS is a platform that allows students in the university of technology
-            Malaysia to print their documents online . Voilla!
-          </p>
+          <h3>جديد هنا؟</h3>
+          <h3>
+            BCD Cards قم بتسجيل حساب للتمكن من استخدام منظومة 
+          </h3>
           <button class="btn transparent" (click)="onSignUpClick()">
             Sign up
           </button>
@@ -80,11 +79,8 @@
       </div>
       <div class="panel right-panel">
         <div class="content">
-          <h3>One of us ?</h3>
-          <p>
-            UTM-OPS is a platform that allows students in the university of technology
-            Malaysia to print their documents online . Voilla!
-          </p>
+          <h3>واحد منا؟</h3>
+          <p>تساعد موظفين مصرف التجارة و التنمية على تنفيذ المهام اليومية وخدمة العملاء <span>BCD Cards </span></p>
           <button class="btn transparent" (click)="onSignInClick()" id="sign-in-btn">
             Sign in
           </button>

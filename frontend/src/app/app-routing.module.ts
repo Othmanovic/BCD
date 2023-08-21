@@ -52,7 +52,8 @@ const routes: Routes = [
   { path: 'admin/login', component: AuthAdminLayoutComponent },
 
   // Default route
-  { path: "", redirectTo: "/landing-page", pathMatch: "full" },
+  { path: "", component: LandingPageComponent },
+  // { path: "", redirectTo: "/landing-page", pathMatch: "full" },
 
   // Landing Page
   { path: "landing-page", component: LandingPageComponent },

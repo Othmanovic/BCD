@@ -2,9 +2,9 @@
   <h2>معلومات العميل</h2>
 
   <div class="search-bar">
-    <input type="text" class="form-control" placeholder="البحث عن طريق رقم الحساب، رقم البطاقة أو الاسم"
-      [(ngModel)]="filterText">
-    <button class="btn btn-primary">بحث</button>
+    <input type="text" placeholder="ابحث باستخدام رقم الحساب أو رقم البطاقة أو الاسم" [(ngModel)]="searchQuery"
+      (input)="performSearch()" />
+    <button (click)="performSearch()">Search</button>
   </div>
 
   <!-- <form>
@@ -30,7 +30,7 @@
       <input type="text" id="serialNumber" [(ngModel)]="searchResults.serialNumber" readonly>
     </form> -->
 
-  <table class="table table-striped">
+  <!-- <table class="table table-striped">
     <thead>
       <tr>
         <th>الاسم</th>
@@ -53,7 +53,54 @@
         <td>{{ client.serialNumber }}</td>
       </tr>
     </tbody>
+  </table> -->
+  <table>
+    <thead>
+      <tr>
+        <th>رقم الحساب</th>
+        <th>رقم البطاقة</th>
+        <th>اسم صاحب البطاقة</th>
+        <!-- Add other table headers if needed -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of searchResults">
+        <td>{{ result.AccountNumber }}</td>
+        <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
+        <td>{{ result.CustomerName }}</td>
+        <!-- Add other table data cells if needed -->
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="direction">بيانات البطاقة</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>العملة</th>
+        <th>الرصيد</th>
+        <th>القيمة المحجوزة</th>
+        <th>تاريخ الانتهاء</th>
+        <th>تاريخ الاصدار</th>
+        <th>اسم صاحب البطاقة</th>
+        <th>رقم البطاقة</th>
+        <th>رقم الحساب</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of searchResults">
+        <td>{{ getAccountCurrency(result.AccountNumber) }}</td>
+        <td>{{ getAccountBalance(result.AccountNumber) }}</td>
+        <td>{{ getAccountArrestedAmounts(result.AccountNumber) }}</td>
+        <td>{{ result.ExpiryDate }}</td>
+        <td>{{ result.CreationDate }}</td>
+        <td>{{ result.CustomerName }}</td>
+        <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
+        <td>{{ result.AccountNumber }}</td>
+      </tr>
+    </tbody>
   </table>
 
-  <button (click)="printReport()">طباعة التقرير</button>
+  <div class="print-button" *ngIf="searchResults.length > 0">
+    <button [routerLink]="['/delivery-report', searchResults[0]._id]">طباعة نموذج الاستلام</button>
+  </div>
 </div>
