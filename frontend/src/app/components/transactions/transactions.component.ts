@@ -4,7 +4,6 @@ import { AuthService } from "../../services/auth/auth.service";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { CustomValidatorsService } from "../../services/CustomValidators/custom-validators.service";
 import { InventoryService } from "../../services/inventory/inventory.service";
-import domtoimage from 'dom-to-image';
 import { CardService } from "src/app/services/card/card.service";
 import { TransactionsService } from "src/app/services/transactions/transactions.service";
 import { SharedService } from "src/app/services/shared.service";
@@ -143,30 +142,7 @@ export class BranchComponent implements OnInit {
 
   ngOnInit() { }
 
-  printReport() {
-    const reportElement = this.elementRef.nativeElement.querySelector('.table');
-    const options = {
-      height: reportElement.offsetHeight,
-      width: reportElement.offsetWidth
-    };
-
-    domtoimage.toPng(reportElement, options)
-      .then((dataUrl: string) => {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.open();
-        printWindow.document.write('<html><head><title>بياتات الفرع أو الوكالة</title></head><body><img src="' + dataUrl + '" /></body></html>');
-        printWindow.document.close();
-        printWindow.onload = function () {
-          printWindow.print();
-          printWindow.onafterprint = function () {
-            printWindow.close();
-          };
-        };
-      })
-      .catch((error: any) => {
-        console.error('Error generating report:', error);
-      });
-  }
+ 
 
 
 

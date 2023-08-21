@@ -3,7 +3,6 @@ import {
   CrumbTrailComponent,
   Icon
 } from "../crumb-trail/crumb-trail.component";
-import domtoimage from 'dom-to-image';
 import html2canvas from 'html2canvas';
 import { FilterPipe } from "../filter.pipe";
 import { CardService } from "src/app/services/card/card.service";
@@ -105,31 +104,5 @@ export class ClientsComponent implements OnInit {
   //   );
   // }
 
-
-
-  printReport() {
-    const reportElement = this.elementRef.nativeElement.querySelector('.table');
-    const options = {
-      height: reportElement.offsetHeight,
-      width: reportElement.offsetWidth
-    };
-
-    domtoimage.toPng(reportElement, options)
-      .then((dataUrl: string) => {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.open();
-        printWindow.document.write('<html><head><title>Visa Card Report</title></head><body><img src="' + dataUrl + '" /></body></html>');
-        printWindow.document.close();
-        printWindow.onload = function () {
-          printWindow.print();
-          printWindow.onafterprint = function () {
-            printWindow.close();
-          };
-        };
-      })
-      .catch((error: any) => {
-        console.error('Error generating report:', error);
-      });
-  }
 
 }

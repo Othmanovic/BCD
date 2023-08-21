@@ -3,7 +3,6 @@ import { Component, ElementRef, OnInit } from "@angular/core";
 import { AuthService, LoginResponse } from "../../services/auth/auth.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { InventoryService } from "../../services/inventory/inventory.service";
-import domtoimage from 'dom-to-image';
 import { CardService } from "src/app/services/card/card.service";
 import { SharedService } from "src/app/services/shared.service";
 
@@ -159,29 +158,5 @@ export class CardComponent implements OnInit {
 
 
 
-  printReport() {
-    const reportElement = this.elementRef.nativeElement.querySelector('.table');
-    const options = {
-      height: reportElement.offsetHeight,
-      width: reportElement.offsetWidth
-    };
-
-    domtoimage.toPng(reportElement, options)
-      .then((dataUrl: string) => {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.open();
-        printWindow.document.write('<html><head><title>Visa Card Report</title></head><body><img src="' + dataUrl + '" /></body></html>');
-        printWindow.document.close();
-        printWindow.onload = function () {
-          printWindow.print();
-          printWindow.onafterprint = function () {
-            printWindow.close();
-          };
-        };
-      })
-      .catch((error: any) => {
-        console.error('Error generating report:', error);
-      });
-  }
 
 }
