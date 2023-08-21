@@ -32,7 +32,7 @@
     <div class="pricing">
       <div class="row">
         <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة:</span> </div>
-        <div class="col-4 card-info"> <span id="price">{{ transactions[0].CustomerName }}</span> </div>
+        <div class="col-4 card-info"> <span id="price">{{ getAccountName(transactions[0].AccountNo) }}</span> </div>
       </div>
       <div class="row">
         <div class="col-7 subheader"> <span id="name">تاريخ الاصدار:</span> </div>

@@ -34,8 +34,15 @@
         <form (submit)="onRegister()" action="#" class="sign-up-form">
           <h2 class="title">Sign up</h2>
           <div class="alert-danger">
-            <div>oiiiiiiiiiiiiiii</div>
             <flash-messages></flash-messages>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" [(ngModel)]="firstname" name="firstname" placeholder="First Name" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" [(ngModel)]="lastname" name="lastname" placeholder="Last Name" />
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>

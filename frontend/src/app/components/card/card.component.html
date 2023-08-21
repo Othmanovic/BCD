@@ -21,7 +21,7 @@
     <tbody>
       <tr *ngFor="let result of searchResults">
         <td>{{ result.AccountNumber }}</td>
-        <td>{{ result.maskedCardNumber }}</td>
+        <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
         <td>{{ result.CustomerName }}</td>
         <!-- Add other table data cells if needed -->
       </tr>
@@ -43,13 +43,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let result of searchResults">
-        <td>{{ result.currency }}</td>
-        <td>{{ result.balance }}</td>
-        <td>{{ result.reservedValue }}</td>
+        <td>{{ getAccountCurrency(result.AccountNumber) }}</td>
+        <td>{{ getAccountBalance(result.AccountNumber) }}</td>
+        <td>{{ getAccountArrestedAmounts(result.AccountNumber) }}</td>
         <td>{{ result.ExpiryDate }}</td>
         <td>{{ result.CreationDate }}</td>
         <td>{{ result.CustomerName }}</td>
-        <td>{{ result.maskedCardNumber }}</td>
+        <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
         <td>{{ result.AccountNumber }}</td>
       </tr>
     </tbody>

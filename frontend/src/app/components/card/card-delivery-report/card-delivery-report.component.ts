@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
 import { CardService } from 'src/app/services/card/card.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-card-delivery-report',
@@ -11,14 +12,21 @@ import { CardService } from 'src/app/services/card/card.service';
 export class CardDeliveryReportComponent implements OnInit {
 
   rowId: string;
-  name = JSON.parse(localStorage.getItem('user'))['username'];
-  cardData: any; // Variable to store the fetched card data
+  name = JSON.parse(localStorage.getItem('user'))['name'];
+  cardData: any;
+  account: any;
   currDate: any;
   
-  constructor(private route: ActivatedRoute, private cardService: CardService) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private cardService: CardService,
+    private sharedService: SharedService,
+    ) {}
 
   ngOnInit(): void {
     this.currDate = Date.now()
+    this.cardData = this.sharedService.getCardsData();
+    this.account = this.sharedService.getAccountCardsData();
     this.route.params.subscribe(params => {
       this.rowId = params['id'];
       console.log('id', this.rowId);
@@ -39,6 +47,21 @@ export class CardDeliveryReportComponent implements OnInit {
         }
       );
     });
+  }
+
+  getAccountCurrency(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';
+  }
+
+  getAccountArrestedAmounts(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.ArrestedAmounts : 'N/A';
+  }
+
+  getAccountBalance(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.Balance : 'N/A';
   }
 
   downloadAngularPageAsPdf() {

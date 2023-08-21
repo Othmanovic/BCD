@@ -17,6 +17,8 @@ import { ValidateService } from 'src/app/services/validate/validate.service';
 export class LandingPageComponent implements OnInit {
 
   username: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
 
@@ -50,6 +52,8 @@ export class LandingPageComponent implements OnInit {
   onRegister() {
     const user = {
       username: this.username,
+      firstname: this.firstname,
+      lastname: this.lastname,
       email: this.email,
       password: this.password,
     }

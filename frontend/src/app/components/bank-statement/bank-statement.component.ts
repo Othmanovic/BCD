@@ -16,6 +16,7 @@ export class BankStatementComponent implements OnInit {
   name = JSON.parse(localStorage.getItem('user'))['username'];
   currDate: number;
   transactions: any[] | null;
+  account: any[] | null;
 
   constructor(private sharedService: SharedService) {}
 
@@ -23,6 +24,7 @@ export class BankStatementComponent implements OnInit {
     // Retrieve transactions data from the shared service
     this.currDate = Date.now()
     this.transactions = this.sharedService.getTransactionsData();
+    this.account = this.sharedService.getAccountData();
     console.log("Transactions: ",this.transactions);
 
     if (!this.transactions) {
@@ -31,6 +33,14 @@ export class BankStatementComponent implements OnInit {
         this.transactions = JSON.parse(storedData);
       }
     }
+  }
+
+  getAccountName(accountNo: string): string {
+    // Find the account with a matching AccountNo
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+  
+    // Return the ClientName if the account is found, or a default value if not found
+    return matchedAccount ? matchedAccount.ClientName : 'N/A';
   }
 
   downloadAngularPageAsPdf() {

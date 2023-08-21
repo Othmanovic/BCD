@@ -40,7 +40,7 @@
       <tr *ngFor="let transaction of transactions">
         <td>{{ transaction.AccountNo }}</td>
         <td>{{ transaction.maskedCardNumber }}</td>
-        <td>{{ transaction.CustomerName }}</td>
+        <td>{{ getAccountName(transaction.AccountNo) }}</td>
       </tr>
     </tbody>
   </table>

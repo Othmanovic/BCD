@@ -190,12 +190,13 @@ router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) =>
 
   try {
     const input = Readable.from(req.file.buffer.toString('utf8'));
-    // Create a readline interface
     const rl = readline.createInterface({
       input,
       output: process.stdout,
       terminal: false
     });
+
+    const results = [];
 
     // Skip the header line (if any)
     let isFirstLine = true;
@@ -207,67 +208,35 @@ router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) =>
         return;
       }
 
-      var data = line.split("|");
-      data = data.slice(1, -1);
+      const data = line.split("|");
+      // Check if the data array has at least 39 elements to avoid out-of-index errors
+      if (data.length >= 39) {
+        const obj = {
+          AccountNo: data[0],
+          CardNo: data[1],
+          Balance: data[4],
+          AccountCurrency: data[15],
+          ClientName: data[22],
+          ArrestedAmounts: data[31],
+        };
 
-      const obj = {
-              AccountNo: data[0],
-              CardNo: data[1],
-              Mbr: data[2],
-              AccountLimit: data[3],
-              Balance: data[4],
-              AccFlag: data[5],
-              DueAmount: data[6],
-              OverDueAmount: data[7],
-              OverDueDays: data[8],
-              OverLimitAmount: data[9],
-              CmsStatus: data[10],
-              OnlineStatus: data[11],
-              CreateDate: data[12],
-              ExpiryDate: data[13],
-              AccountStatus: data[14],
-              AccountCurrency: data[15],
-              ActivationDate: data[16],
-              AmountOnHold: data[17],
-              ExternalAccount: data[18],
-              AccountBranch: data[19],
-              AccountType: data[20],
-              LinkedContract: data[21],
-              ClientName: data[22],
-              AccountState: data[23],
-              ProductType: data[24],
-              DomesticMPProfile: data[25],
-              InternationalMPProfile: data[26],
-              LinkedCards: data[27],
-              LinkedValidCards: data[28],
-              AccDAFProfileNameDom: data[29],
-              AccDAFProfileNameInt: data[30],
-              ArrestedAmounts: data[31],
-              RetailBalance: data[32],
-              CashBalance: data[33],
-              FeesBalance: data[34],
-              InterestBalance: data[35],
-              PaymentsBalance: data[36],
-              OthersBalance: data[37],
-              InstallmentBalance: data[38],
-            };
-
-            try {
-              const newDocument = new Accounts(obj);
-              let result = await newDocument.save();
-            } catch (e) {
-              console.error("Error while saving document:", e);
-              res.json({ success: false, msg: "Error while saving document" });
-              return;
-            }
+        results.push(obj);
+      }
     });
 
-    rl.on('close', () => {
-      res.json({ success: true, msg: "Documents inserted successfully" });
+    rl.on('close', async () => {
+      // Insert the results array into the database
+      try {
+        await Accounts.insertMany(results);
+        res.json({ success: true, msg: "Documents inserted successfully" });
+      } catch (e) {
+        console.error("Error while saving documents:", e);
+        res.json({ success: false, msg: "Error while saving documents" });
+      }
     });
   } catch (e) {
     // Printing error
-    console.log("Error:", e.stack);
+    console.error("Error:", e.stack);
     res.json({ success: false, msg: "Error while parsing file" });
   }
 });
@@ -276,7 +245,7 @@ router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) =>
 router.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
-    console.log("q",query);
+    console.log("q", query);
     if (!query) {
       return res.status(400).json({ message: "Search query is required" });
     }
@@ -287,8 +256,15 @@ router.get("/search", async (req, res) => {
         { PAN: { $in: query } },
       ],
     });
+    
+    const account = await Accounts.find({
+      $or: [
+        { AccountNo: { $in: query } },
+        { CardNo: { $in: query } },
+      ],
+    });
 
-    res.json({ cards: cards });
+    res.json({ cards: cards, account: account });
   } catch (error) {
     console.error("Error searching cards:", error);
     res.status(500).json({ message: "Error searching cards" });
@@ -338,8 +314,18 @@ router.post("/getBankStatment", verifyToken, async (req, res) => {
       ],
     };
 
+    const accountQuery = {
+
+      $or: [
+        { CardNo: { $in: cardNo } },
+        { AccountNo: { $in: accountNo } },
+      ],
+
+    };
+
     const transactions = await Transactions.find(query);
-    res.json({ transactions: transactions });
+    const account = await Accounts.find(accountQuery);
+    res.json({ transactions: transactions, account: account });
   } catch (error) {
     console.error("Error retrieving transactions:", error);
     res.status(500).json({ message: "Error retrieving transactions" });

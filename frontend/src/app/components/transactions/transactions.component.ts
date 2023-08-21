@@ -24,6 +24,7 @@ export class BranchComponent implements OnInit {
   cardNo: string;
   accountNo: string;
   transactions: any[];
+  account: any[];
 
   branchData: any[];
   cardData: any;
@@ -79,6 +80,7 @@ export class BranchComponent implements OnInit {
       startDate: this.startDate, // Define startDate and endDate as needed
       endDate: this.endDate,
     };
+
     this.transactionsService.getBankStatement(searchData)
       .subscribe(
         (response) => {
@@ -93,7 +95,13 @@ export class BranchComponent implements OnInit {
             // Update the transaction object with the masked card number
             return { ...transaction, maskedCardNumber };
           });
+
+          this.account = response['account'].map((account) => {
+            return { ...account };
+          });
+          console.log("Account: ", this.account)
           this.sharedService.setTransactionsData(this.transactions);
+          this.sharedService.setAccountData(this.account);
           console.log("Transactions in Branch",this.transactions);
           localStorage.setItem('transactionsData', JSON.stringify(this.transactions));
         },
@@ -102,6 +110,14 @@ export class BranchComponent implements OnInit {
           // Handle error here (e.g., show an error message on the UI)
         }
       );
+  }
+
+  getAccountName(accountNo: string): string {
+    // Find the account with a matching AccountNo
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+  
+    // Return the ClientName if the account is found, or a default value if not found
+    return matchedAccount ? matchedAccount.ClientName : 'N/A';
   }
 
   // Function to search for branch or agency information

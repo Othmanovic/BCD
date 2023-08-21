@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { InventoryService } from "../../services/inventory/inventory.service";
 import domtoimage from 'dom-to-image';
 import { CardService } from "src/app/services/card/card.service";
+import { SharedService } from "src/app/services/shared.service";
 
 @Component({
   selector: "app-card",
@@ -81,15 +82,20 @@ export class CardComponent implements OnInit {
 
   cardInfo: any;
   searchResults: any[];
+  account: any[];
   transactions: any[];
   searchQuery: string = '';
 
   filteredCardInfo: any;
   filteredTransactionHistory: any[];
 
-  constructor(private elementRef: ElementRef, private cardService: CardService) {}
+  constructor(
+    private elementRef: ElementRef,
+    private cardService: CardService,
+    private sharedService: SharedService,
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   performSearch() {
     // Check if the search query is a PAN number
@@ -105,17 +111,38 @@ export class CardComponent implements OnInit {
           const firstDigits = card.PAN.substr(0, 4);
           const lastDigits = card.PAN.substr(-4);
           const maskedCardNumber = firstDigits + '****' + lastDigits;
-  
+
           // Update the card object with the masked card number
           return { ...card, maskedCardNumber };
         });
+
+        this.account = response['account'].map((account) => {
+          return { ...account };
+        });
+        this.sharedService.setCardsData(this.searchResults);
+        this.sharedService.setAccountCardsData(this.account);
       },
       (error) => {
         console.error('Error searching cards:', error);
         // Handle error here (e.g., show an error message on the UI)
       }
     );
-}
+  }
+
+  getAccountCurrency(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';
+  }
+
+  getAccountArrestedAmounts(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.ArrestedAmounts : 'N/A';
+  }
+
+  getAccountBalance(accountNo: string): string {
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+    return matchedAccount ? matchedAccount.Balance : 'N/A';
+  }
 
 
   // performSearch() {
@@ -130,7 +157,7 @@ export class CardComponent implements OnInit {
   //   );
   // }
 
-  
+
 
   printReport() {
     const reportElement = this.elementRef.nativeElement.querySelector('.table');

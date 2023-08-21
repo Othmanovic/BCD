@@ -32,7 +32,9 @@ router.post('/register', async (req, res, next) => {
     let newUser = new User({
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname
     });
     try {
         const hash = await User.hash(req.body.password)
@@ -73,7 +75,7 @@ router.post('/authenticate', async (req, res, next) => {
             token: `Bearer ${token}`,
             user: {
                 id: user._id,
-                name: user.name,
+                name: `${user.firstname} ${user.lastname}`,
                 username: user.username,
                 email: user.email
             }
