@@ -7,6 +7,7 @@ import html2canvas from 'html2canvas';
 import { FilterPipe } from "../filter.pipe";
 import { CardService } from "src/app/services/card/card.service";
 import { SharedService } from "src/app/services/shared.service";
+import { AuthService } from "src/app/services/auth/auth.service";
 
 // const logo = require('../../../assets/icons/bank-logo-1').default as string;
 interface Client {
@@ -40,9 +41,13 @@ export class ClientsComponent implements OnInit {
     private elementRef: ElementRef,
     private cardService: CardService,
     private sharedService: SharedService,
+    private authService: AuthService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log("Is logged in Value: ",this.authService.loggedIn());
+
+  }
 
   performSearch() {
     // Check if the search query is a PAN number

@@ -53,8 +53,9 @@ export class AppComponent implements OnInit {
     public authService: AuthService) {}
 
   async ngOnInit(): Promise<void> {
-    await this.testLogin();
-    document.addEventListener("auth", () => this.testLogin());
+    // await this.testLogin();
+    // document.addEventListener("auth", () => this.testLogin());
+    
   }
 
   /**

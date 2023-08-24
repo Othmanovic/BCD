@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ResponseData } from 'src/app/models/auth.model';
@@ -40,7 +40,8 @@ export class LandingPageComponent implements OnInit {
     private validateService: ValidateService,
     private flashMessage: FlashMessagesService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) { }
 
 
@@ -98,7 +99,12 @@ export class LandingPageComponent implements OnInit {
 
       if (data['success']) {
         this.authService.storeUserData(data['token'], data['user']);
-        this.router.navigate(['./clients'])
+        setTimeout(() => {
+          this.router.navigate(['./clients']);
+  
+          // Explicitly trigger change detection to update the view
+          this.cd.detectChanges();
+        }, 10);
         // this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
       } else {
         // this.flashMessage.show('Login Failed', { cssClass: 'alert-danger', timeout: 5000 });

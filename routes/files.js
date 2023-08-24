@@ -21,16 +21,19 @@ function dateFormat(date) {
 }
 
 // Handle file upload
-router.post("/upload1", verifyToken, upload.single("file1"), (req, res) => {
+router.post("/upload1", verifyToken, upload.single("file1"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file received" });
   }
 
   try {
+    // Clear existing data in the Transactions table
+    await Transactions.deleteMany({});
+
     var fileContent = String(req.file.buffer);
     var lines = fileContent.split("\r\n");
 
-    lines.forEach(async (line) => {
+    const insertPromises = lines.map(async (line) => {
       var data = line.split("|");
 
       const obj = {
@@ -61,8 +64,12 @@ router.post("/upload1", verifyToken, upload.single("file1"), (req, res) => {
         item25: data[24],
       };
       const newDocument = new Transactions(obj);
-      let result = await newDocument.save();
+      return newDocument.save();
     });
+
+    // Wait for all insertPromises to complete
+    await Promise.all(insertPromises);
+
     res.json({ success: true, msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
@@ -70,9 +77,8 @@ router.post("/upload1", verifyToken, upload.single("file1"), (req, res) => {
     res.json({ success: false, msg: "Error while parsing file" });
   }
 });
-
 // Handle file upload
-router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
+router.post("/upload2", verifyToken, upload.single("file2"), async (req, res) => {
   console.log("upload2", req.file);
 
   if (!req.file) {
@@ -80,12 +86,15 @@ router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
   }
 
   try {
+    // Clear existing data in the CardDetails table
+    await CardDetails.deleteMany({});
+
     var fileContent = String(req.file.buffer);
     var lines = fileContent.split("\r\n");
 
     lines = lines.slice(10);
 
-    lines.forEach(async (line) => {
+    const insertPromises = lines.map(async (line) => {
       var data = line.split("|");
       data = data.slice(1, -1);
 
@@ -104,8 +113,12 @@ router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
         ExpiryDate: data[11],
       };
       const newDocument = new CardDetails(obj);
-      let result = await newDocument.save();
+      return newDocument.save();
     });
+
+    // Wait for all insertPromises to complete
+    await Promise.all(insertPromises);
+
     res.json({ success: true, msg: "Documents inserted successfully" });
   } catch (e) {
     // Printing error
@@ -115,6 +128,76 @@ router.post("/upload2", verifyToken, upload.single("file2"), (req, res) => {
 });
 
 router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) => {
+  console.log("upload3", req.file);
+
+  if (!req.file) {
+    return res.status(400).json({ message: "No file received" });
+  }
+
+  try {
+    const input = Readable.from(req.file.buffer.toString('utf8'));
+    const rl = readline.createInterface({
+      input,
+      output: process.stdout,
+      terminal: false
+    });
+
+    const results = [];
+
+    // Skip the header line (if any)
+    let isFirstLine = true;
+
+    rl.on('line', async (line) => {
+      // Skip the first line (header line)
+      if (isFirstLine) {
+        isFirstLine = false;
+        return;
+      }
+
+      const data = line.split("|");
+      // Check if the data array has at least 39 elements to avoid out-of-index errors
+      if (data.length >= 39) {
+        const obj = {
+          AccountNo: data[0],
+          CardNo: data[1],
+          Balance: data[4],
+          AccountCurrency: data[15],
+          ClientName: data[22],
+          ArrestedAmounts: data[31],
+        };
+
+        results.push(obj);
+      }
+    });
+
+    rl.on('close', async () => {
+      // Clear existing data from the Accounts collection
+      try {
+        await Accounts.deleteMany({});
+      } catch (e) {
+        console.error("Error while clearing existing data:", e);
+        res.json({ success: false, msg: "Error while clearing existing data" });
+        return;
+      }
+
+      // Insert the results array into the database
+      try {
+        await Accounts.insertMany(results);
+        res.json({ success: true, msg: "Documents inserted successfully" });
+      } catch (e) {
+        console.error("Error while saving documents:", e);
+        res.json({ success: false, msg: "Error while saving documents" });
+      }
+    });
+  } catch (e) {
+    // Printing error
+    console.error("Error:", e.stack);
+    res.json({ success: false, msg: "Error while parsing file" });
+  }
+});
+
+
+// router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) => {
   // console.log("upload3", req.file);
 
   // if (!req.file) {
@@ -182,64 +265,7 @@ router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) =>
   //   res.json({ success: false, msg: "Error while parsing file" });
   // }
 
-  console.log("upload3", req.file);
-
-  if (!req.file) {
-    return res.status(400).json({ message: "No file received" });
-  }
-
-  try {
-    const input = Readable.from(req.file.buffer.toString('utf8'));
-    const rl = readline.createInterface({
-      input,
-      output: process.stdout,
-      terminal: false
-    });
-
-    const results = [];
-
-    // Skip the header line (if any)
-    let isFirstLine = true;
-
-    rl.on('line', async (line) => {
-      // Skip the first line (header line)
-      if (isFirstLine) {
-        isFirstLine = false;
-        return;
-      }
-
-      const data = line.split("|");
-      // Check if the data array has at least 39 elements to avoid out-of-index errors
-      if (data.length >= 39) {
-        const obj = {
-          AccountNo: data[0],
-          CardNo: data[1],
-          Balance: data[4],
-          AccountCurrency: data[15],
-          ClientName: data[22],
-          ArrestedAmounts: data[31],
-        };
-
-        results.push(obj);
-      }
-    });
-
-    rl.on('close', async () => {
-      // Insert the results array into the database
-      try {
-        await Accounts.insertMany(results);
-        res.json({ success: true, msg: "Documents inserted successfully" });
-      } catch (e) {
-        console.error("Error while saving documents:", e);
-        res.json({ success: false, msg: "Error while saving documents" });
-      }
-    });
-  } catch (e) {
-    // Printing error
-    console.error("Error:", e.stack);
-    res.json({ success: false, msg: "Error while parsing file" });
-  }
-});
+// });
 
 // search
 router.get("/search", async (req, res) => {
