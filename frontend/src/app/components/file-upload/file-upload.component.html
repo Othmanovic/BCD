@@ -1,46 +1,40 @@
 <div class="wrapper">
+  <!-- File 1 -->
   <div class="container">
     <h2 class="page-title">تحميل ملفات المعاملات المصرفية</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload1($event)">
     </div>
 
-    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile()">تحميل الملف</button>
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile1 || isUploading1" (click)="uploadFile1()">
+      {{ isUploading1 ? 'جارٍ التحميل...' : 'تحميل الملف' }}
+    </button>
   </div>
 
+  <!-- File 2 -->
   <div class="container">
     <h2 class="page-title">تحميل ملفات البطاقة</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload2($event)">
     </div>
 
-    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile2()">تحميل الملف</button>
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile2 || isUploading2" (click)="uploadFile2()">
+      {{ isUploading2 ? 'جارٍ التحميل...' : 'تحميل الملف' }}
+    </button>
   </div>
 
+  <!-- File 3 -->
   <div class="container">
     <h2 class="page-title">تحميل ملفات الحساب</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload($event)">
+      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload3($event)">
     </div>
 
-    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile" (click)="uploadFile3()">تحميل الملف</button>
+    <button class="btn btn-primary upload-btn" [disabled]="!selectedFile3 || isUploading3" (click)="uploadFile3()">
+      {{ isUploading3 ? 'جارٍ التحميل...' : 'تحميل الملف' }}
+    </button>
   </div>
 </div>
-
-<!-- <div class="container">
-  <div class="upload-container">
-    <label for="file1" class="upload-label">File 1</label>
-    <input type="file" id="file1" (change)="onFileSelected($event, 1)" />
-  </div>
-  <div class="upload-container">
-    <label for="file2" class="upload-label">File 2</label>
-    <input type="file" id="file2" (change)="onFileSelected($event, 2)" />
-  </div>
-  <div class="upload-container">
-    <label for="file3" class="upload-label">File 3</label>
-    <input type="file" id="file3" (change)="onFileSelected($event, 3)" />
-  </div>
-</div> -->
