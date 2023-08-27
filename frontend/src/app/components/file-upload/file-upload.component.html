@@ -4,7 +4,13 @@
     <h2 class="page-title">تحميل ملفات المعاملات المصرفية</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload1($event)">
+      <input type="file" class="form-control-file" id="fileUpload1" (change)="onFileUpload1($event)">
+      <div *ngIf="selectedFile1">
+        <span *ngIf="!isUploading1">{{ selectedFile1.name }}</span>
+        <button mat-icon-button color="warn" *ngIf="!isUploading1" (click)="undoFileSelection(1)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
     </div>
 
     <button class="btn btn-primary upload-btn" [disabled]="!selectedFile1 || isUploading1" (click)="uploadFile1()">
@@ -17,7 +23,13 @@
     <h2 class="page-title">تحميل ملفات البطاقة</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload2($event)">
+      <input type="file" class="form-control-file" id="fileUpload2" (change)="onFileUpload2($event)">
+      <div *ngIf="selectedFile2">
+        <span *ngIf="!isUploading2">{{ selectedFile2.name }}</span>
+        <button mat-icon-button color="warn" *ngIf="!isUploading2" (click)="undoFileSelection(2)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
     </div>
 
     <button class="btn btn-primary upload-btn" [disabled]="!selectedFile2 || isUploading2" (click)="uploadFile2()">
@@ -30,7 +42,13 @@
     <h2 class="page-title">تحميل ملفات الحساب</h2>
     <div class="form-group">
       <label for="fileUpload">تحميل الملف</label>
-      <input type="file" class="form-control-file" id="fileUpload" (change)="onFileUpload3($event)">
+      <input type="file" class="form-control-file" id="fileUpload3" (change)="onFileUpload3($event)">
+      <div *ngIf="selectedFile3">
+        <span *ngIf="!isUploading3">{{ selectedFile3.name }}</span>
+        <button mat-icon-button color="warn" *ngIf="!isUploading3" (click)="undoFileSelection(3)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
     </div>
 
     <button class="btn btn-primary upload-btn" [disabled]="!selectedFile3 || isUploading3" (click)="uploadFile3()">

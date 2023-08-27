@@ -16,6 +16,7 @@ export class FileUplaodComponent implements OnInit {
   isUploading1: boolean = false;
   isUploading2: boolean = false;
   isUploading3: boolean = false;
+  
 
   constructor(
     private http: HttpClient,
@@ -70,6 +71,34 @@ export class FileUplaodComponent implements OnInit {
     }
   }
 
+  undoFileSelection(fileNumber: number) {
+    switch (fileNumber) {
+      case 1:
+        this.selectedFile1 = null;
+        const fileInput1 = document.getElementById('fileUpload1') as HTMLInputElement;
+      if (fileInput1) {
+        fileInput1.value = '';
+      }
+        break;
+      case 2:
+        this.selectedFile2 = null;
+        const fileInput2 = document.getElementById('fileUpload2') as HTMLInputElement;
+      if (fileInput2) {
+        fileInput2.value = '';
+      }
+        break;
+      case 3:
+        this.selectedFile3 = null;
+        const fileInput3 = document.getElementById('fileUpload3') as HTMLInputElement;
+      if (fileInput3) {
+        fileInput3.value = '';
+      }
+        break;
+      default:
+        break;
+    }
+  }
+
 
 
   uploadFile1() {
@@ -90,6 +119,9 @@ export class FileUplaodComponent implements OnInit {
       (response) => {
         console.log('File uploaded successfully!', response);
         this.isUploading1 = false;
+        this.clearFileInput(1);
+        alert("تم رقع ملف المعاملات المصرفية بنجاح")
+
       },
       (error) => {
         console.error('Error uploading file:', error);
@@ -116,6 +148,9 @@ export class FileUplaodComponent implements OnInit {
       (response) => {
         console.log('File uploaded successfully!', response);
         this.isUploading2 = false;
+        this.clearFileInput(2);
+        alert("تم رقع ملف البطاقة بنجاح")
+
       },
       (error) => {
         console.error('Error uploading file:', error);
@@ -142,12 +177,36 @@ export class FileUplaodComponent implements OnInit {
       (response) => {
         console.log('File uploaded successfully!', response);
         this.isUploading3 = true;
+        this.clearFileInput(3);
+        alert("تم رقع ملف الجساب بنجاح")
       },
       (error) => {
         console.error('Error uploading file:', error);
         this.isUploading3 = true;
       }
     );
+  }
+
+  clearFileInput(fileNumber: number) {
+    const fileInput = document.getElementById(`fileUpload${fileNumber}`) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    // Reset the selected file
+    switch (fileNumber) {
+      case 1:
+        this.selectedFile1 = null;
+        break;
+      case 2:
+        this.selectedFile2 = null;
+        break;
+      case 3:
+        this.selectedFile3 = null;
+        break;
+      // Add similar cases for other file upload sections (2 and 3) if needed
+      default:
+        break;
+    }
   }
 
 
