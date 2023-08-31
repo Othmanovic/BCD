@@ -8,6 +8,7 @@ import { FilterPipe } from "../filter.pipe";
 import { CardService } from "src/app/services/card/card.service";
 import { SharedService } from "src/app/services/shared.service";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { Router } from "@angular/router";
 
 // const logo = require('../../../assets/icons/bank-logo-1').default as string;
 interface Client {
@@ -27,12 +28,12 @@ interface Client {
   providers: [FilterPipe]
 })
 export class ClientsComponent implements OnInit {
-
   cardInfo: any;
   searchResults: any[];
   account: any[];
   transactions: any[];
   searchQuery: string = '';
+  selectedRow: any; // Declare a variable to store the selected result
 
   filteredCardInfo: any;
   filteredTransactionHistory: any[];
@@ -41,11 +42,21 @@ export class ClientsComponent implements OnInit {
     private elementRef: ElementRef,
     private cardService: CardService,
     private sharedService: SharedService,
-    private authService: AuthService,
+    private router: Router
   ) { }
 
-  ngOnInit() { 
-    console.log("Is logged in Value: ",this.authService.loggedIn());
+  ngOnInit() { }
+
+
+  // Click handler for rows
+  onRowClick(result: any) {
+    this.selectedRow = result;
+    console.log("Clicked", this.selectedRow);
+    if (result) {
+      this.router.navigate(['/client-report', result._id]);
+    } else {
+      // Handle case when no row is selected (e.g., show an error message)
+    }
 
   }
 
@@ -81,6 +92,14 @@ export class ClientsComponent implements OnInit {
     );
   }
 
+  showRowDetails(selectedRow: any) {
+    // Store the selected row's data in a shared service
+    this.sharedService.setSelectedRowData(selectedRow);
+
+    // Navigate to the report page
+    this.router.navigate(['/delivery-report']);
+  }
+
   getAccountCurrency(accountNo: string): string {
     const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
     return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';
@@ -97,17 +116,6 @@ export class ClientsComponent implements OnInit {
   }
 
 
-  // performSearch() {
-  //   this.cardService.searchCards(this.searchQuery).subscribe(
-  //     (result) => {
-  //       this.filteredCardInfo = result.cardInfo;
-  //       this.filteredTransactionHistory = result.transactions;
-  //     },
-  //     (error) => {
-  //       console.error('Error searching cards:', error);
-  //     }
-  //   );
-  // }
 
 
 }

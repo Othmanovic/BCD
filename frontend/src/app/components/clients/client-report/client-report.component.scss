@@ -1,0 +1,116 @@
+.card {
+    padding: 4vh 0;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-top: 8px solid #F1B616;
+    border-left: none;
+    border-right: none;
+    direction: rtl;
+    height: auto;
+}
+
+
+.title {
+    color: rgb(49, 46, 46);
+    font-weight: bold;
+    margin-bottom: 2vh;
+    padding: 0 8%;
+    text-align: center;
+    font-size: 3rem;
+}
+
+#details {
+    font-weight: 400
+}
+
+.info {
+    padding: 5% 8%;
+    color: rgb(66, 64, 64);
+
+}
+
+.info .col-5 {
+    padding: 0
+}
+
+#heading {
+    color: black;
+    font-weight: bold;
+    line-height: 6vh
+}
+
+.pricing {
+    background-color: rgba(104, 101, 101, 0.2);
+    padding: 2vh 8%;
+    line-height: 2.5;
+}
+
+.pricing span {
+    font-size: large;
+}
+
+.card-info {
+    font-size: medium;
+    color: rgb(49, 48, 48);
+}
+
+.horizontal-dotted-line {
+    display: flex;
+    width: 300px;
+    padding: 5px;
+    font-size: small;
+    color: black;
+}
+
+.horizontal-dotted-line:after {
+    border-bottom: 1px dotted black;
+    content: '';
+    flex: 1;
+}
+
+
+.pricing .col-3 {
+    padding: 0
+}
+
+.subheader {
+    font-size: large;
+    color: black;
+}
+
+.total {
+    padding: 2vh 8%;
+    color: #F1B616;
+    font-weight: bold
+}
+
+.total .col-3 {
+    padding: 0
+}
+
+.footer {
+    padding: 0 8%;
+    font-size: large;
+    color: black;
+    margin-top: 0;
+    padding-top: 0;
+    position: static;
+}
+
+.error-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.error-actions {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.error-actions .btn {
+    margin-top: 5%;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background-color: #F1B616;
+    color: white;
+}

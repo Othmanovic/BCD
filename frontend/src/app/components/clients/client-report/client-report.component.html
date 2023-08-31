@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successful Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+    <div class="card" id="download">
+        <div class="title"><img src="../../../assets/icons/bank-logo-1.png"></div>
+        <br>
+        <br>
+        <div class="title">نموذج بيانات العميل</div>
+        <div class="info">
+            <div class="row">
+                <div class="col-7"> <span id="heading">التاريخ</span><br> <span id="details">{{currDate | date:'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-5 pull-right"> <span id="heading">رقم الحساب</span><br> <span
+                        id="details">{{ cardData.AccountNumber }}</span> </div>
+            </div>
+        </div>
+        <div class="pricing">
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">اسم حامل البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.CustomerName }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">رقم البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.PAN.replace(' 0', '') }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">تاريخ الاصدار</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.CreationDate | date:'dd/MM/yyyy' }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">صلاحية البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ cardData.ExpiryDate }}</span> </div>
+            </div> 
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">نوع عملة البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ getAccountCurrency(cardData.AccountNumber) }}</span> </div>
+            </div>
+            <div class="row">
+                <div class="col-7 subheader"> <span id="name">رصيد البطاقة</span> </div>
+                <div class="col-4 card-info"> <span id="price">{{ getAccountBalance(cardData.AccountNumber) }}</span> </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+
+        <div class="pricing">
+            <div class="row py-4">
+                <div class="col"> <span id="heading">تم التسليم من طرف الموظف  {{name}}</span> </div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">اسم الزبون</div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">رقم الهاتف </div>
+            </div>
+            <div class="row">
+                <div class="horizontal-dotted-line">توقيع الزبون</div>
+            </div>
+
+        </div>
+
+        <div class="footer" (click)="downloadAngularPageAsPdf()">
+            <div class="error-actions">
+                <a id="download_button" class="btn btn-lg"><span class="glyphicon glyphicon-print mx-2"></span>
+                    Print </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
