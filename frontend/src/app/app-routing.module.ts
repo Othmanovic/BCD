@@ -27,6 +27,7 @@ import { UserLayoutComponent } from "./layouts/user-layout/user-layout.component
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { CardDeliveryReportComponent } from "./components/card/card-delivery-report/card-delivery-report.component";
 import { BankStatementComponent } from "./components/bank-statement/bank-statement.component";
+import { ClientReportComponent } from "./components/clients/client-report/client-report.component";
 
 
 const routes: Routes = [
@@ -60,6 +61,7 @@ const routes: Routes = [
 
   // Clients
   { path: "clients", component: ClientsComponent },
+  { path: "client-report/:id", component: ClientReportComponent },
 
   // Auth
   {

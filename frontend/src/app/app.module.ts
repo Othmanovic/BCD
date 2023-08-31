@@ -64,6 +64,7 @@ import { CardDeliveryReportComponent } from './components/card/card-delivery-rep
 import { FlashMessagesModule } from "angular2-flash-messages";
 import { BankStatementComponent } from './components/bank-statement/bank-statement.component';
 import { DecimalPointPipe } from './pipes/decimal-point.pipe';
+import { ClientReportComponent } from './components/clients/client-report/client-report.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { DecimalPointPipe } from './pipes/decimal-point.pipe';
     CardDeliveryReportComponent,
     BankStatementComponent,
     DecimalPointPipe,
+    ClientReportComponent,
   ],
   imports: [
     BrowserModule,

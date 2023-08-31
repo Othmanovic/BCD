@@ -9,6 +9,7 @@ export class SharedService {
   private accountData: any[] | null = null;
   private cardssData: any[] | null = null;
   private accountCardsData: any[] | null = null;
+  private selectedRow: any[] | null = null;
   constructor() { }
 
   // ******* Transactions ***********
@@ -39,5 +40,13 @@ export class SharedService {
   }
   getAccountCardsData() {
     return this.accountCardsData;
+  }
+
+  setSelectedRowData(selectedRow: any[]) {
+    this.selectedRow = selectedRow;
+  }
+
+  getSelectedRowData() {
+    return this.selectedRow;
   }
 }

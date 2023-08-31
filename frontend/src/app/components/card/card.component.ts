@@ -12,78 +12,13 @@ import { SharedService } from "src/app/services/shared.service";
   styleUrls: ["./card.component.scss"]
 })
 export class CardComponent implements OnInit {
-  // cardInfo: any;
-  // transactions: any[];
-  // searchQuery: string = '';
-
-  // filteredCardInfo: any;
-  // filteredTransactionHistory: any[];
-
-  // constructor(private elementRef: ElementRef) {
-  //   // Simulated data (Replace with actual data from the database)
-  //   this.cardInfo = {
-  //     accountNumber: '1234567890',
-  //     cardNumber: '**** **** **** 1234',
-  //     cardHolderName: 'John Doe',
-  //     releaseDate: '2022-01-01',
-  //     expiryDate: '2024-12-31',
-  //     reservedValue: 1000,
-  //     balance: 5000,
-  //     currency: 'USD'
-  //   };
-
-  //   this.transactions = [
-  //     {
-  //       transactionDate: '2022-01-01',
-  //       transactionType: 'Purchase',
-  //       transactionValue: 100,
-  //       cardCurrency: 'USD',
-  //       withdrawnValue: 90,
-  //       withdrawalType: 'Online',
-  //       withdrawalPlace: 'Website XYZ'
-  //     },
-  //     {
-  //       transactionDate: '2022-01-02',
-  //       transactionType: 'Withdrawal',
-  //       transactionValue: 200,
-  //       cardCurrency: 'USD',
-  //       withdrawnValue: 200,
-  //       withdrawalType: 'ATM',
-  //       withdrawalPlace: 'ATM ABC'
-  //     }
-  //   ];
-
-  //   this.filteredCardInfo = this.cardInfo;
-  //   this.filteredTransactionHistory = this.transactions;
-  // }
-
-  // performSearch() {
-  //   // Filter the card info data based on search query
-  //   this.filteredCardInfo = this.cardInfo.filter((item: any) => {
-  //     return (
-  //       item.accountNumber.includes(this.searchQuery) ||
-  //       item.cardNumber.includes(this.searchQuery) ||
-  //       item.cardHolderName.includes(this.searchQuery)
-  //     );
-  //   });
-
-  //   // Filter the transaction history data based on search query
-  //   this.filteredTransactionHistory = this.transactions.filter((item: any) => {
-  //     return (
-  //       item.accountNumber.includes(this.searchQuery) ||
-  //       item.cardNumber.includes(this.searchQuery) ||
-  //       item.cardHolderName.includes(this.searchQuery)
-  //     );
-  //   });
-  // }
-
-  // ngOnInit() { }
 
   cardInfo: any;
   searchResults: any[];
   account: any[];
   transactions: any[];
   searchQuery: string = '';
+  selectedRow: any; // Declare a variable to store the selected result
 
   filteredCardInfo: any;
   filteredTransactionHistory: any[];
@@ -92,9 +27,23 @@ export class CardComponent implements OnInit {
     private elementRef: ElementRef,
     private cardService: CardService,
     private sharedService: SharedService,
+    private router: Router
   ) { }
 
   ngOnInit() { }
+
+
+  // Click handler for rows
+  onRowClick(result: any) {
+    this.selectedRow = result;
+    console.log("Clicked", this.selectedRow);
+    if (result) {
+      this.router.navigate(['/delivery-report', result._id]);
+    } else {
+      // Handle case when no row is selected (e.g., show an error message)
+    }
+
+  }
 
   performSearch() {
     // Check if the search query is a PAN number
@@ -128,6 +77,14 @@ export class CardComponent implements OnInit {
     );
   }
 
+  showRowDetails(selectedRow: any) {
+    // Store the selected row's data in a shared service
+    this.sharedService.setSelectedRowData(selectedRow);
+
+    // Navigate to the report page
+    this.router.navigate(['/delivery-report']);
+  }
+
   getAccountCurrency(accountNo: string): string {
     const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
     return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';
@@ -143,20 +100,12 @@ export class CardComponent implements OnInit {
     return matchedAccount ? matchedAccount.Balance : 'N/A';
   }
 
-
-  // performSearch() {
-  //   this.cardService.searchCards(this.searchQuery).subscribe(
-  //     (result) => {
-  //       this.filteredCardInfo = result.cardInfo;
-  //       this.filteredTransactionHistory = result.transactions;
-  //     },
-  //     (error) => {
-  //       console.error('Error searching cards:', error);
-  //     }
-  //   );
+  // goToReport(selectedRow: any) {
+  //   if (selectedRow) {
+  //     this.router.navigate(['/delivery-report', selectedRow._id]);
+  //   } else {
+  //     // Handle case when no row is selected (e.g., show an error message)
+  //   }
   // }
-
-
-
 
 }

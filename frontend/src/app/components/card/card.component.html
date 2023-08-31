@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let result of searchResults">
+      <tr *ngFor="let result of searchResults" (click)="onRowClick(result)">
         <td>{{ result.AccountNumber }}</td>
         <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
         <td>{{ result.CustomerName }}</td>
@@ -31,6 +31,7 @@
   <table>
     <thead>
       <tr>
+        <th>طباعة</th>
         <th>العملة</th>
         <th>الرصيد</th>
         <th>القيمة المحجوزة</th>
@@ -42,7 +43,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let result of searchResults">
+      <tr *ngFor="let result of searchResults" (click)="onRowClick(result)">
+        <td><div class="print-button" *ngIf="searchResults.length != null">
+          <button >طباعة نموذج الاستلام</button>
+        </div></td>
         <td>{{ getAccountCurrency(result.AccountNumber) }}</td>
         <td>{{ getAccountBalance(result.AccountNumber) }}</td>
         <td>{{ getAccountArrestedAmounts(result.AccountNumber) }}</td>
@@ -55,57 +59,4 @@
     </tbody>
   </table>
   <br>
-  <!-- <div class="print-button">
-    <button routerLink="['/delivery-report', result._id]">طباعة نموذج الاستلام</button>
-  </div> -->
-
-  <div class="print-button" *ngIf="searchResults.length > 0">
-    <button [routerLink]="['/delivery-report', searchResults[0]._id]">طباعة نموذج الاستلام</button>
-  </div>
 </div>
-
-<!-- <div class="print-button">
-  <button routerLink="delivery-report">طباعة نموذج الاستلام</button>
-</div> -->
-<!-- <h3>سجل العمليات</h3>
-    <table>
-    <thead>
-      <tr>
-        <th>تاريخ العملية</th>
-        <th>نوع العملية</th>
-        <th>قيمة العملية بعملة البطاقة</th>
-        <th>العملة</th>
-        <th>القيمة المسحوبة</th>
-        <th>نوع السحب</th>
-        <th>مكان السحب</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction.transactionDate }}</td>
-        <td>{{ transaction.transactionType }}</td>
-        <td>{{ transaction.transactionValue }}</td>
-        <td>{{ transaction.currency }}</td>
-        <td>{{ transaction.withdrawnValue }}</td>
-        <td>{{ transaction.withdrawalType }}</td>
-        <td>{{ transaction.withdrawalPlace }}</td>
-      </tr>
-    </tbody>
-  </table> 
-<br>
-  <h3>رسوم البطاقة</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>عدد الرسوم</th>
-        <th>قيمة الرسوم</th>
-        <th>قيمة السحب</th>
-        <th>قيمة الشراء</th>
-        <th>قيمة العمولات</th>
-        <th>عدد عمليات السحب</th>
-        <th>عدد عمليات الشراء</th>
-        <th>عددالعمولات</th>
-      </tr>
-    </thead>
-  </table> -->
-<!-- </div> -->

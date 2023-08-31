@@ -5,18 +5,6 @@
     &nbsp;  بياتات الزبون
   </a>
 
-  <ng-container *ngIf="authStatus.authorized">
-    <a mat-list-item routerLink="/inventories">
-      <mat-icon>work</mat-icon>
-      &nbsp; Inventories
-    </a>
-
-    <a mat-list-item routerLink="/account" *ngIf="!authStatus.offline">
-      <mat-icon>account_circle</mat-icon>
-      &nbsp; Account
-    </a>
-  </ng-container>
-
   <ng-container *ngIf="!authStatus.authorized">
     <a mat-list-item routerLink="/cards">
       <mat-icon>credit_card</mat-icon>
@@ -26,6 +14,11 @@
     <a mat-list-item routerLink="/bank-statement">
       <mat-icon>account_balance</mat-icon>
       &nbsp; البيانات المصرفية 
+    </a>
+
+    <a mat-list-item>
+      <mat-icon>dashboard</mat-icon>
+      &nbsp; AMEX 
     </a>
   </ng-container>
   
