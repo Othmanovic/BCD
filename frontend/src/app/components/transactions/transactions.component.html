@@ -1,8 +1,9 @@
 <div class="branch-info">
   <h2>البيانات المصرفية</h2>
-
+  
+  <!-- <div style="color: white;" *ngIf="transactions.length === 0"> No Cards Found</div> -->
   <div class="search-bar">
-
+    
     <div class="container">
       <div class="date-picker-container">
         <mat-form-field class="date-picker-field">
@@ -24,8 +25,6 @@
         <button (click)="getBankStatement()">Search</button>
       </div>
     </div>
-
-    <!-- <button class="btn btn-primary" (click)="performSearch()">بحث</button> -->
   </div>
 
   <table class="table table-striped">

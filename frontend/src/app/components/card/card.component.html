@@ -7,6 +7,8 @@
     <button (click)="performSearch()">Search</button>
   </div>
   <br>
+  <div class="danger" *ngIf="searchResults.length === 0"> No Cards Found</div>
+
 
   <h3 class="direction">نتائج البحث</h3>
   <table>

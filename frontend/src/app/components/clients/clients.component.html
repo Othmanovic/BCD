@@ -6,6 +6,7 @@
       (input)="performSearch()" />
     <button (click)="performSearch()">Search</button>
   </div>
+  <div class="danger" *ngIf="searchResults.length === 0"> No Cards Found</div>
 
   <!-- <form>
       <label for="accountNumber">Account Number</label>
