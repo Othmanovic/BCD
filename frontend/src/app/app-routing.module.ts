@@ -20,7 +20,7 @@ import { EventsComponent } from "./components/events/events.component";
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { AddCategoryComponent } from "./components/add-category/add-category.component";
 import { EditCategoryComponent } from "./components/edit-category/edit-category.component";
-import { LoginGuard } from "./guards/login.guard";
+import { AuthGuard, } from "./guards/auth.guard";
 import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 import { AuthAdminLayoutComponent } from "./layouts/auth-admin-layout/auth-admin-layout.component";
 import { UserLayoutComponent } from "./layouts/user-layout/user-layout.component";
@@ -60,33 +60,33 @@ const routes: Routes = [
   { path: "landing-page", component: LandingPageComponent },
 
   // Clients
-  { path: "clients", component: ClientsComponent },
-  { path: "client-report/:id", component: ClientReportComponent },
+  { path: "clients", component: ClientsComponent, canActivate: [AuthGuard] },
+  { path: "client-report/:id", component: ClientReportComponent, canActivate: [AuthGuard] },
 
   // Auth
   {
     path: "cards",
     children: [
-      { path: "", component: CardComponent },
-      { path: ":email", component: CardComponent },
+      { path: "", component: CardComponent, canActivate: [AuthGuard] },
+      { path: ":email", component: CardComponent, canActivate: [AuthGuard] },
     ]
   },
-  { path: "delivery-report/:id", component: CardDeliveryReportComponent },
+  { path: "delivery-report/:id", component: CardDeliveryReportComponent, canActivate: [AuthGuard] },
   {
     path: "bank-statement",
     children: [
-      { path: "", component: BranchComponent },
-      { path: ":email", component: BranchComponent }
+      { path: "", component: BranchComponent, canActivate: [AuthGuard] },
+      { path: ":email", component: BranchComponent, canActivate: [AuthGuard] }
     ]
   },
-  { path: "statement-report/:id", component: BankStatementComponent },
-  { path: "statement-report", component: BankStatementComponent },
+  { path: "statement-report/:id", component: BankStatementComponent, canActivate: [AuthGuard] },
+  { path: "statement-report", component: BankStatementComponent, canActivate: [AuthGuard] },
 
   // Account
   { path: "account", component: AccountComponent },
 
   // Scan
-  { path: "upload", component: FileUplaodComponent },
+  { path: "upload", component: FileUplaodComponent, canActivate: [AuthGuard] },
 
   // Events
   { path: "events", component: EventsComponent },
@@ -94,8 +94,6 @@ const routes: Routes = [
   // Inventories
   {
     path: "inventories",
-    // canActivate: [LoginGuard],
-    // canActivateChild: [LoginGuard],
     children: [
       { path: "", component: InventoriesComponent },
       { path: "new", component: AddInventoryComponent },

@@ -7,21 +7,33 @@ const mongoose = require('mongoose');
 const config = require('./config/database')
 
 
-const uri = 'mongodb+srv://bcdcards23:Pyp2dUQp48SC7qPH@bcd-cards.27gcwhb.mongodb.net/?retryWrites=true&w=majority'
+const mongoURI = 'mongodb://localhost:27017/bcdCard'; // Replace with your MongoDB URI
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+
+// const uri = 'mongodb+srv://bcdcards23:Pyp2dUQp48SC7qPH@bcd-cards.27gcwhb.mongodb.net/?retryWrites=true&w=majority'
 // const uri = 'mongodb+srv://hacks7331:SH74Z1tgwY4OaDXu@cluster0.7luc7b1.mongodb.net/?retryWrites=true&w=majority'
 
 // Connect to Database
-mongoose.connect(uri);
+// mongoose.connect(uri);
 
-// On Connection
-mongoose.connection.on('connected', () => {
-    console.log("Connected to database " + uri)
-})
+// // On Connection
+// mongoose.connection.on('connected', () => {
+//     console.log("Connected to database " + uri)
+// })
 
 // On error
-mongoose.connection.on('error', (err) => {
-    console.log("Database Error: " + err)
-})
+// mongoose.connection.on('error', (err) => {
+//     console.log("Database Error: " + err)
+// })
 
 
 const app = express();
