@@ -278,15 +278,15 @@ router.get("/search", async (req, res) => {
 
     const cards = await CardDetails.find({
       $or: [
-        { AccountNumber: { $in: query } },
-        { PAN: { $in: query } },
+        { AccountNumber: { $regex: query } },
+        { PAN: { $regex: query } },
       ],
     });
     
     const account = await Accounts.find({
       $or: [
-        { AccountNo: { $in: query } },
-        { CardNo: { $in: query } },
+        { AccountNo: { $regex: query } },
+        { CardNo: { $regex: query } },
       ],
     });
 

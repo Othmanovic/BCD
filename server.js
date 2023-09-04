@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config/database')
 
 
-const mongoURI = 'mongodb://localhost:27017/bcdCard'; // Replace with your MongoDB URI
+const mongoURI = 'mongodb+srv://hacks7331:SH74Z1tgwY4OaDXu@cluster0.7luc7b1.mongodb.net/?retryWrites=true&w=majority'; // Replace with your MongoDB URI
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
