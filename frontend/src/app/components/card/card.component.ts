@@ -52,6 +52,13 @@ export class CardComponent implements OnInit {
     // Include the trailing zero in the search query if it's a PAN number
     const formattedSearchQuery = isPANNumber ? this.searchQuery + ' 0' : this.searchQuery;
 
+    // Check if the search query is empty
+    if (!formattedSearchQuery.trim()) {
+      // Clear the results and return early
+      this.searchResults = [];
+      return;
+    }
+
     this.cardService.searchCards(formattedSearchQuery).subscribe(
       (response) => {
         this.searchResults = response['cards'].map((card) => {
@@ -76,6 +83,11 @@ export class CardComponent implements OnInit {
       }
     );
   }
+
+  sanitizeAccountNumber(input: string): string {
+    return input.replace(/[^0-9]/g, '');
+  }
+  
 
   showRowDetails(selectedRow: any) {
     // Store the selected row's data in a shared service

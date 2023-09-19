@@ -1,9 +1,6 @@
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, ElementRef, OnInit } from "@angular/core";
-import { AuthService } from "../../services/auth/auth.service";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { CustomValidatorsService } from "../../services/CustomValidators/custom-validators.service";
-import { InventoryService } from "../../services/inventory/inventory.service";
+
 import { CardService } from "src/app/services/card/card.service";
 import { TransactionsService } from "src/app/services/transactions/transactions.service";
 import { SharedService } from "src/app/services/shared.service";
@@ -35,33 +32,10 @@ export class BranchComponent implements OnInit {
   branches = ['Branch 1', 'Branch 2', 'Branch 3'];
   selectedBranch: string;
   selectedDate: Date;
+  showNoCardsFoundMessage: boolean = false;
 
 
-  constructor(private elementRef: ElementRef, private sharedService: SharedService, private cardService: CardService, private transactionsService: TransactionsService) {
-    // Simulated data (Replace with actual data from the database)
-    // this.cardData = {
-    //   releaseDate: '2022-12-31',
-    //   expiryDate: '2024-12-31',
-    //   accountNumber: 23452365256,
-    //   currency: '$',
-    //   cardNumber: 1000,
-    //   cardHolderName: 'John Doe',
-    //   currentBalance: 5000
-    // };
-
-    // this.branchData = [
-    //   {
-    //     name: 'Alfwaihat',
-    //     portfolioDate: '2022-01-01',
-    //     serialNumber: 10234550,
-
-    //   },
-
-    // ];
-
-    // this.filteredCardData = this.cardData;
-    // this.filteredbranchData = this.branchData;
-  }
+  constructor(private elementRef: ElementRef, private sharedService: SharedService, private cardService: CardService, private transactionsService: TransactionsService) { }
 
 
   myFunc(event) {
@@ -71,7 +45,9 @@ export class BranchComponent implements OnInit {
 
   getBankStatement() {
     // Perform input validation and error handling as needed
-
+    if (this.startDate == undefined || this.endDate == undefined || this.searchValue == undefined) {
+      alert("Please fill up all the fields");
+    } 
     // Call the TransactionsService to fetch the bank statement
     const searchData = {
       cardNo: this.searchValue, // Use searchValue for both cardNo and accountNo
@@ -89,19 +65,21 @@ export class BranchComponent implements OnInit {
             const firstDigits = transaction.CardNo.substr(0, 4);
             const lastDigits = transaction.CardNo.substr(-4);
             const maskedCardNumber = firstDigits + '****' + lastDigits;
-
             
             // Update the transaction object with the masked card number
             return { ...transaction, maskedCardNumber };
           });
-
+          
           this.account = response['account'].map((account) => {
             return { ...account };
           });
           console.log("Account: ", this.account)
           this.sharedService.setTransactionsData(this.transactions);
           this.sharedService.setAccountData(this.account);
-          console.log("Transactions in Branch",this.transactions);
+          console.log("Transactions in Branch", this.transactions);
+          if (this.transactions.length === 0) {
+            this.showNoCardsFoundMessage = true;
+          }
           localStorage.setItem('transactionsData', JSON.stringify(this.transactions));
         },
         (error) => {
@@ -114,7 +92,7 @@ export class BranchComponent implements OnInit {
   getAccountName(accountNo: string): string {
     // Find the account with a matching AccountNo
     const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
-  
+
     // Return the ClientName if the account is found, or a default value if not found
     return matchedAccount ? matchedAccount.ClientName : 'N/A';
   }

@@ -49,6 +49,11 @@ export class ClientReportComponent implements OnInit {
     });
   }
 
+  sanitizeAccountNumber(input: string): string {
+    return input.replace(/[^0-9]/g, '');    
+  }
+  
+
   getAccountCurrency(accountNo: string): string {
     const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
     return matchedAccount ? matchedAccount.AccountCurrency : 'N/A';

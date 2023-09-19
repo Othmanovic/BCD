@@ -36,6 +36,37 @@ mat-form-field {
     margin-right: 20px;
 }
 
+.border {
+    border: white solid 3px;
+}
+
+/* Initially hide the message */
+.not-found-message {
+  display: none;
+}
+
+.direction {
+    direction: rtl;
+  }
+
+/* Show the message when showNoCardsFoundMessage is true */
+.not-found-message.ng-star-inserted {
+    display: block;
+    align-items: center;
+    background-color: rgb(78, 78, 78);
+    /* Set the background color to black */
+    color: white;
+    /* Set the text color to white */
+    padding: 10px;
+    /* Add some padding for spacing */
+    text-align: center;
+    /* Center-align the text */
+    font-size: 18px;
+    /* Adjust the font size as needed */
+    font-weight: bold;
+    /* Optionally make the text bold */
+}
+
 
 table {
     width: 100%;

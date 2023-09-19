@@ -63,23 +63,30 @@ export class ClientsComponent implements OnInit {
   performSearch() {
     // Check if the search query is a PAN number
     const isPANNumber = /^[0-9]{16}$/.test(this.searchQuery);
-
+  
     // Include the trailing zero in the search query if it's a PAN number
     const formattedSearchQuery = isPANNumber ? this.searchQuery + ' 0' : this.searchQuery;
-
+  
+    // Check if the search query is empty
+    if (!formattedSearchQuery.trim()) {
+      // Clear the results and return early
+      this.searchResults = [];
+      return;
+    }
+    
+  
     this.cardService.searchCards(formattedSearchQuery).subscribe(
       (response) => {
-        
         this.searchResults = response['cards'].map((card) => {
           // Format the card number
           const firstDigits = card.PAN.substr(0, 4);
           const lastDigits = card.PAN.substr(-6);
-          const maskedCardNumber = firstDigits + '****' + lastDigits;          
-
+          const maskedCardNumber = firstDigits + '****' + lastDigits;
+  
           // Update the card object with the masked card number
           return { ...card, maskedCardNumber };
         });
-
+  
         this.account = response['account'].map((account) => {
           return { ...account };
         });
@@ -92,6 +99,12 @@ export class ClientsComponent implements OnInit {
       }
     );
   }
+
+  sanitizeAccountNumber(input: string): string {
+    return input.replace(/[^0-9]/g, '');
+  }
+  
+  
 
   showRowDetails(selectedRow: any) {
     // Store the selected row's data in a shared service

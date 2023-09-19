@@ -2,12 +2,11 @@
   <h2 class="direction">تفاصيل بطاقة الفيزا</h2>
 
   <div class="search-bar">
-    <input type="text" placeholder="ابحث باستخدام رقم الحساب أو رقم البطاقة أو الاسم" [(ngModel)]="searchQuery"
-      (input)="performSearch()" />
+    <input type="text" placeholder="ابحث باستخدام رقم الحساب أو رقم البطاقة" [(ngModel)]="searchQuery"
+      (keyup)="performSearch()" />
     <button (click)="performSearch()">Search</button>
   </div>
-  <br>
-  <div class="danger" *ngIf="searchResults.length === 0"> No Cards Found</div>
+  <div class="not-found-message" *ngIf="searchResults.length === 0"> No Cards Found</div>
 
 
   <h3 class="direction">نتائج البحث</h3>
@@ -22,7 +21,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let result of searchResults" (click)="onRowClick(result)">
-        <td>{{ result.AccountNumber }}</td>
+        <td>{{ sanitizeAccountNumber(result.AccountNumber) }}</td>
         <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
         <td>{{ result.CustomerName }}</td>
         <!-- Add other table data cells if needed -->
@@ -56,7 +55,7 @@
         <td>{{ result.CreationDate }}</td>
         <td>{{ result.CustomerName }}</td>
         <td>{{ result.maskedCardNumber.replace(' 0', '') }}</td>
-        <td>{{ result.AccountNumber }}</td>
+        <td>{{ sanitizeAccountNumber(result.AccountNumber) }}</td>
       </tr>
     </tbody>
   </table>

@@ -92,7 +92,7 @@ router.post("/upload2", verifyToken, upload.single("file2"), async (req, res) =>
     var fileContent = String(req.file.buffer);
     var lines = fileContent.split("\r\n");
 
-    lines = lines.slice(10);
+    lines = lines.slice(9);
 
     const insertPromises = lines.map(async (line) => {
       var data = line.split("|");
