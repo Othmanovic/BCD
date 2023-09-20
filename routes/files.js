@@ -163,6 +163,7 @@ router.post("/upload3", verifyToken, upload.single("file3"), async (req, res) =>
           Balance: data[4],
           AccountCurrency: data[15],
           ClientName: data[22],
+          ProductType: data[24],
           ArrestedAmounts: data[31],
         };
 
@@ -286,9 +287,12 @@ router.get("/search", async (req, res) => {
     const account = await Accounts.find({
       $or: [
         { AccountNo: { $regex: query } },
-        { CardNo: { $regex: query } },
+        { CardNo: { $regex: `^${query.replace(' 0', '')}$` } },
       ],
     });
+    console.log("Account Data", account );
+    console.log("cards Data", cards );
+
 
     res.json({ cards: cards, account: account });
   } catch (error) {

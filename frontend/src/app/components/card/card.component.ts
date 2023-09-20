@@ -70,7 +70,6 @@ export class CardComponent implements OnInit {
           // Update the card object with the masked card number
           return { ...card, maskedCardNumber };
         });
-
         this.account = response['account'].map((account) => {
           return { ...account };
         });

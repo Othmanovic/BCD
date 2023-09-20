@@ -43,6 +43,14 @@ export class BankStatementComponent implements OnInit {
     return matchedAccount ? matchedAccount.ClientName : 'N/A';
   }
 
+  getProductType(accountNo: string): string {
+    // Find the account with a matching AccountNo
+    const matchedAccount = this.account.find(account => account.AccountNo === accountNo);
+  
+    // Return the ClientName if the account is found, or a default value if not found
+    return matchedAccount ? matchedAccount.ProductType : 'N/A';
+  }
+
   downloadAngularPageAsPdf() {
     const divElement = document.getElementById('download');
     if (!divElement) {
