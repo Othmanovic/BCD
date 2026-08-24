@@ -1,21 +1,25 @@
-MIT License
+# Copyright and Usage Notice
 
-Copyright (c) 2023 Othmanovic
+Copyright © 2023–2026 Othmanovic
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is provided solely as a portfolio and technical work sample.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The original implementation was developed as part of a project for the Bank of Commerce and Development (BCD) and is subject to applicable client agreements and confidentiality obligations.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The source code and materials contained in this repository are **not open source** and are not licensed for general use, copying, modification, redistribution, sublicensing, or commercial use.
+
+Permission is granted to prospective employers, recruiters, and technical reviewers to view and evaluate this repository for the purpose of assessing the author's technical skills and experience.
+
+No permission is granted to:
+
+* Copy or redistribute the source code
+* Use the code or substantial portions of it in another project
+* Modify or create derivative works for distribution
+* Use the software for commercial purposes
+* Republish the code or present it as another person's work
+
+No confidential client information, credentials, production secrets, customer data, or other intentionally protected information should be present in this repository. If any such information is identified, it must not be accessed, copied, distributed, or used.
+
+THE SOFTWARE AND MATERIALS IN THIS REPOSITORY ARE PROVIDED "AS IS" FOR EVALUATION AND PORTFOLIO PURPOSES ONLY, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED.
+
+All rights not expressly granted above are reserved.
